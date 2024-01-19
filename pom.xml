@@ -8,8 +8,8 @@
 		<version>3.2.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.divya</groupId>
-	<artifactId>inventory-management</artifactId>
+	<groupId>com.HealthCare</groupId>
+	<artifactId>SystemApplication</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>inventory-management</name>
 	<description>inventory-management-system</description>

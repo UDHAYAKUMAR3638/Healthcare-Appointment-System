@@ -19,11 +19,11 @@ public class Doctor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long doctorId;
-    private String doctorFristName;
-    private String doctorLastName;
-    private String doctorEmail;
-    private String specialization;
+    public Long doctorId;
+    public String doctorFristName;
+    public String doctorLastName;
+    public String doctorEmail;
+    public String specialization;
 
     public Doctor(User user) {
         this.doctorFristName = user.getFirstname();
@@ -33,6 +33,6 @@ public class Doctor {
     }
 
     @OneToMany(mappedBy = "doctor")
-    private List<Appointment> appointments;
+    public List<Appointment> appointments;
 
 }

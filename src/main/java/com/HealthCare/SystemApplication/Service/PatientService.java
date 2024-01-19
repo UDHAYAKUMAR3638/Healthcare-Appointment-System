@@ -43,7 +43,6 @@ public class PatientService {
             if (patient1 == null)
                 return null;
             else {
-                System.out.println("out");
                 if (patient.patientFirstName != null)
                     patient1.patientFirstName = patient.patientFirstName;
                 if (patient.patientLastName != null)

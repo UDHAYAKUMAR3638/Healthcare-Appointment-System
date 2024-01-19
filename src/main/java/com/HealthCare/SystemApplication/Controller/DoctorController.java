@@ -21,13 +21,6 @@ public class DoctorController {
     @Autowired
     DoctorService doctorService;
 
-    @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/add")
-    ResponseEntity<String> addDoctor(@RequestBody Doctor doctor) {
-        doctorService.addDoctor(doctor);
-        return new ResponseEntity<String>("New Doctor Entity Created.", HttpStatus.CREATED);
-    }
-
     @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST') or hasRole('DOCTOR')")
     @GetMapping("/appointmentDetails/{docId}")
     ResponseEntity<List<AppointmentOut>> getDocMyAppointments(@PathVariable Long docId) {
@@ -35,7 +28,6 @@ public class DoctorController {
         HttpStatus status;
         try {
             myAppointments = doctorService.getMyAppointments(docId);
-            // System.out.println(myAppointments);
             if (myAppointments.isEmpty()) {
                 status = HttpStatus.NO_CONTENT;
             } else {
@@ -48,6 +40,21 @@ public class DoctorController {
         }
         List<AppointmentOut> appointmentOut = AppointmentOut.fromAppointments(myAppointments);
         return new ResponseEntity<List<AppointmentOut>>(appointmentOut, status);
+    }
+
+    @PreAuthorize("hasRole('ADMIN') or hasRole('DOCTOR')")
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateDoctor(@PathVariable Long id, @RequestBody Doctor doctor) {
+        HttpStatus status;
+        try {
+            return new ResponseEntity<DoctorOut>(doctorService.updateDoctor(id, doctor),
+                    HttpStatus.OK);
+
+        } catch (Exception e) {
+            status = HttpStatus.BAD_REQUEST;
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(null, status);
     }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST')")

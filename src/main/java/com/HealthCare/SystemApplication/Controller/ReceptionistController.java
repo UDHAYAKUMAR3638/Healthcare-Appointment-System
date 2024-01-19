@@ -61,12 +61,6 @@ public class ReceptionistController {
 
     }
 
-    @PostMapping("/addDoctor")
-    ResponseEntity<String> addDoctor(@RequestBody Doctor doctor) {
-        doctorService.addDoctor(doctor);
-        return new ResponseEntity<String>("New Doctor Entity Created.", HttpStatus.CREATED);
-    }
-
     @GetMapping("/doctor/{docId}")
     ResponseEntity<List<Appointment>> getDocMyAppointments(@PathVariable Long docId) {
         List<Appointment> myAppointments = null;

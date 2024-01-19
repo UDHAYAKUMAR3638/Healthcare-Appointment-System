@@ -75,7 +75,7 @@ public class PatientController {
         return new ResponseEntity<String>(msg, status);
     }
 
-    @PreAuthorize("hasRole('PATIENT') or hasRole('RECEPTIONIST')")
+    @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR')")
     @PutMapping("/updateApp/{id}")
     public ResponseEntity<?> updateAppointment(@PathVariable Long id, @RequestBody Appointment appointment) {
         HttpStatus status;

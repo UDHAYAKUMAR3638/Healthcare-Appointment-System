@@ -7,6 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.HealthCare.SystemApplication.Model.Appointment;
+import com.HealthCare.SystemApplication.Model.AppointmentOut;
 import com.HealthCare.SystemApplication.Model.Doctor;
 import com.HealthCare.SystemApplication.Model.DoctorOut;
 import com.HealthCare.SystemApplication.Service.DoctorService;
@@ -27,9 +28,9 @@ public class DoctorController {
         return new ResponseEntity<String>("New Doctor Entity Created.", HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST')")
-    @GetMapping("{docId}")
-    ResponseEntity<List<Appointment>> getDocMyAppointments(@PathVariable Long docId) {
+    @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST') or hasRole('DOCTOR')")
+    @GetMapping("/appointmentDetails/{docId}")
+    ResponseEntity<List<AppointmentOut>> getDocMyAppointments(@PathVariable Long docId) {
         List<Appointment> myAppointments = null;
         HttpStatus status;
         try {
@@ -45,8 +46,8 @@ public class DoctorController {
             status = HttpStatus.BAD_REQUEST;
 
         }
-        return new ResponseEntity<List<Appointment>>(myAppointments, status);
-
+        List<AppointmentOut> appointmentOut = AppointmentOut.fromAppointments(myAppointments);
+        return new ResponseEntity<List<AppointmentOut>>(appointmentOut, status);
     }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST')")

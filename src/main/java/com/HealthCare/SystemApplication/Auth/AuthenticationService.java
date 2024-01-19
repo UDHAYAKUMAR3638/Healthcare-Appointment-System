@@ -7,7 +7,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.HealthCare.SystemApplication.Controller.ReceptionistController;
 import com.HealthCare.SystemApplication.Exception.EmailAlreadyExistsException;
 import com.HealthCare.SystemApplication.Model.Doctor;
 import com.HealthCare.SystemApplication.Model.Patient;

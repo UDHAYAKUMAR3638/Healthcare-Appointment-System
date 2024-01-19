@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.HealthCare.SystemApplication.Model.Appointment;
+import com.HealthCare.SystemApplication.Model.AppointmentOut;
 import com.HealthCare.SystemApplication.Model.Patient;
 import com.HealthCare.SystemApplication.Model.PatientOut;
 import com.HealthCare.SystemApplication.Service.AppointmentService;
@@ -70,9 +71,23 @@ public class PatientController {
         } catch (Exception e) {
             msg = "Book Another Appointment as this appointment is already booked";
             status = HttpStatus.BAD_REQUEST;
-            appointmentService.bookAppointment(appointment);
         }
         return new ResponseEntity<String>(msg, status);
+    }
+
+    @PreAuthorize("hasRole('PATIENT') or hasRole('RECEPTIONIST')")
+    @PutMapping("/updateApp/{id}")
+    public ResponseEntity<?> updateAppointment(@PathVariable Long id, @RequestBody Appointment appointment) {
+        HttpStatus status;
+        try {
+            return new ResponseEntity<AppointmentOut>(appointmentService.updateAppointment(id, appointment),
+                    HttpStatus.OK);
+
+        } catch (Exception e) {
+            status = HttpStatus.BAD_REQUEST;
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(null, status);
     }
 
     @DeleteMapping("/deleteApp/{Id}")

@@ -23,9 +23,9 @@ public class Appointment {
 
     @ManyToOne
     @JoinColumn(name = "doctor_id") // add foreign key column with primary key column in Doctor
-    private Doctor doctor;
+    public Doctor doctor;
 
     @OneToOne
     @JoinColumn(name = "patient_id")
-    private Patient patient;
+    public Patient patient;
 }

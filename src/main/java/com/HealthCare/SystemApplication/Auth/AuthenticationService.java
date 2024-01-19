@@ -69,7 +69,7 @@ public class AuthenticationService {
                 if (request.getRole().equals("RECEPTIONIST")) {
                         Receptionist recp = new Receptionist(user);
                         recepRepo.save(recp);
-                        System.out.println("RECP inserted");
+                        // System.out.println("RECP inserted");
 
                 }
 

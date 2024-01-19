@@ -7,7 +7,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.HealthCare.SystemApplication.Controller.ReceptionistController;
 import com.HealthCare.SystemApplication.Exception.EmailAlreadyExistsException;
+import com.HealthCare.SystemApplication.Model.Doctor;
+import com.HealthCare.SystemApplication.Model.Patient;
+import com.HealthCare.SystemApplication.Model.Receptionist;
+import com.HealthCare.SystemApplication.Repository.DoctorRepo;
+import com.HealthCare.SystemApplication.Repository.PatientRepo;
+import com.HealthCare.SystemApplication.Repository.ReceptionistRepo;
 import com.HealthCare.SystemApplication.Repository.TokenRepository;
 import com.HealthCare.SystemApplication.Repository.UserRepository;
 import com.HealthCare.SystemApplication.Service.JwtService;
@@ -23,6 +30,9 @@ import lombok.RequiredArgsConstructor;
 public class AuthenticationService {
 
         private final UserRepository userRepository;
+        private final PatientRepo patientRepo;
+        private final DoctorRepo doctorRepo;
+        private final ReceptionistRepo recepRepo;
         private final TokenRepository tokenRepository;
         private final PasswordEncoder passwordEncoder;
         private final AuthenticationManager authenticationManager;
@@ -42,6 +52,26 @@ public class AuthenticationService {
                         throw new EmailAlreadyExistsException("Email already exists");
                 }
                 User savedUser = userRepository.save(user);
+                // System.out.println("patient inserted:" +
+                // (request.getRole().equals("PATIENT")));
+
+                if (request.getRole().equals("PATIENT")) {
+                        Patient patient = new Patient(user);
+                        patientRepo.save(patient);
+                        // System.out.println("patient inserted");
+                }
+                if (request.getRole().equals("DOCTOR")) {
+                        Doctor doctor = new Doctor(user);
+                        doctorRepo.save(doctor);
+                        // System.out.println("DOCTOR inserted");
+
+                }
+                if (request.getRole().equals("RECEPTIONIST")) {
+                        Receptionist recp = new Receptionist(user);
+                        recepRepo.save(recp);
+                        System.out.println("RECP inserted");
+
+                }
 
                 var jwt = jwtService.generateToken(user);
                 saveUserToken(savedUser, jwt);

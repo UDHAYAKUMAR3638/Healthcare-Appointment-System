@@ -1,5 +1,6 @@
 package com.HealthCare.SystemApplication.Model;
 
+import com.HealthCare.SystemApplication.Users.User;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -18,17 +19,19 @@ public class Patient {
     public String patientLastName;
     @Column(nullable = false, unique = true)
     public String patientEmail;
-    @Column(nullable = false)
-    public String patientPassword;
     public String patientContact;
 
-    public Patient(String patientFirstName, String patientLastName, String patientEmail, String patientPassword,
-            String patientContact) {
+    public Patient(String patientFirstName, String patientLastName, String patientEmail, String patientContact) {
         this.patientFirstName = patientFirstName;
         this.patientLastName = patientLastName;
         this.patientEmail = patientEmail;
-        this.patientPassword = patientPassword;
         this.patientContact = patientContact;
+    }
+
+    public Patient(User user) {
+        this.patientFirstName = user.getFirstname();
+        this.patientLastName = user.getLastname();
+        this.patientEmail = user.getEmail();
     }
 
     @OneToOne(mappedBy = "patient")

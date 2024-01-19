@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.HealthCare.SystemApplication.Model.Appointment;
-import com.HealthCare.SystemApplication.Model.Doctor;
 import com.HealthCare.SystemApplication.Model.Patient;
 import com.HealthCare.SystemApplication.Model.PatientOut;
 import com.HealthCare.SystemApplication.Service.AppointmentService;

@@ -11,13 +11,18 @@ import lombok.Data;
 public class DoctorOut {
     @Id
     private Long doctorId;
-    private String doctorName;
+    private String doctorFristName;
+    private String doctorLastName;
+    private String doctorEmail;
     private String specialization;
 
     public DoctorOut(Doctor doctor) {
         this.doctorId = doctor.getDoctorId();
-        this.doctorName = doctor.getDoctorName();
+        this.doctorFristName = doctor.getDoctorFristName();
+        this.doctorLastName = doctor.getDoctorLastName();
         this.specialization = doctor.getSpecialization();
+        this.doctorEmail = doctor.getDoctorEmail();
+
     }
 
     public static List<DoctorOut> fromDoctors(List<Doctor> doctors) {

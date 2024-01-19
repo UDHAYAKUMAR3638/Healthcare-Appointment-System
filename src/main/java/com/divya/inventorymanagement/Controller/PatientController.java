@@ -16,18 +16,28 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.divya.inventorymanagement.Model.Appointment;
 import com.divya.inventorymanagement.Model.Doctor;
-import com.divya.inventorymanagement.Model.DoctorOut;
+import com.divya.inventorymanagement.Model.Patient;
+import com.divya.inventorymanagement.Model.PatientOut;
 import com.divya.inventorymanagement.Service.AppointmentService;
 import com.divya.inventorymanagement.Service.PatientService;
 
 @RestController
-@RequestMapping("patientDetails")
+@RequestMapping("patient")
 @PreAuthorize("hasRole('PATIENT') or hasRole('RECEPIONIST')")
 public class PatientController {
     @Autowired
     AppointmentService appointmentService;
     @Autowired
     PatientService patientService;
+
+    @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST')")
+    @GetMapping("/getAll")
+    public ResponseEntity<List<PatientOut>> getallPatients() {
+        List<Patient> allPatients = null;
+        allPatients = patientService.getAllPatients();
+        List<PatientOut> allPatientsOut = PatientOut.fromPatients(allPatients);
+        return new ResponseEntity<List<PatientOut>>(allPatientsOut, HttpStatus.OK);
+    }
 
     @PostMapping("/bookApp")
     public ResponseEntity<String> bookAppointment(@RequestBody Appointment appointment) {
@@ -51,12 +61,4 @@ public class PatientController {
         return new ResponseEntity<String>("Appointment Cancelled Sucessfully.", HttpStatus.OK);
     }
 
-    @GetMapping("/doctors")
-    public ResponseEntity<List<DoctorOut>> getAllDoctors() {
-        List<Doctor> allDoctors = null;
-        allDoctors = patientService.getAllDoctors();
-        List<DoctorOut> allDoctorsOut = DoctorOut.fromDoctors(allDoctors);
-        return new ResponseEntity<List<DoctorOut>>(allDoctorsOut, HttpStatus.OK);
-
-    }
 }

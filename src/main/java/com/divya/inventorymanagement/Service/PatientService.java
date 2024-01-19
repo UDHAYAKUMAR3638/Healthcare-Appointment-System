@@ -25,10 +25,6 @@ public class PatientService {
     @Autowired
     AppointmentService appointmentService;
 
-    public List<Doctor> getAllDoctors() {
-        return doctorService.getAllDoctors();
-    }
-
     public Patient getPatient(Long Id) {
         return patientRepo.findById(Id).orElse(null);
     }

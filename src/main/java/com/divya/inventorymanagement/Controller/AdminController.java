@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/admin")
-@PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR')")
+@PreAuthorize("hasRole('RECEPTIONIST') or hasRole('DOCTOR')")
 public class AdminController {
 
     @PostMapping("/post")

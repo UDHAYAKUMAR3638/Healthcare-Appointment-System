@@ -8,24 +8,26 @@ import org.springframework.web.bind.annotation.*;
 
 import com.divya.inventorymanagement.Model.Appointment;
 import com.divya.inventorymanagement.Model.Doctor;
+import com.divya.inventorymanagement.Model.DoctorOut;
 import com.divya.inventorymanagement.Service.DoctorService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("doctor")
-@PreAuthorize("hasRole('DOCTOR')")
 public class DoctorController {
 
     @Autowired
     DoctorService doctorService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add")
     ResponseEntity<String> addDoctor(@RequestBody Doctor doctor) {
         doctorService.addDoctor(doctor);
         return new ResponseEntity<String>("New Doctor Entity Created.", HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST')")
     @GetMapping("{docId}")
     ResponseEntity<List<Appointment>> getDocMyAppointments(@PathVariable Long docId) {
         List<Appointment> myAppointments = null;
@@ -44,6 +46,16 @@ public class DoctorController {
 
         }
         return new ResponseEntity<List<Appointment>>(myAppointments, status);
+
+    }
+
+    @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST')")
+    @GetMapping("/getAll")
+    public ResponseEntity<List<DoctorOut>> getAllDoctors() {
+        List<Doctor> allDoctors = null;
+        allDoctors = doctorService.getAllDoctors();
+        List<DoctorOut> allDoctorsOut = DoctorOut.fromDoctors(allDoctors);
+        return new ResponseEntity<List<DoctorOut>>(allDoctorsOut, HttpStatus.OK);
 
     }
 

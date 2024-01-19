@@ -8,13 +8,19 @@ import org.springframework.stereotype.Service;
 import com.HealthCare.SystemApplication.Model.Appointment;
 import com.HealthCare.SystemApplication.Model.Doctor;
 import com.HealthCare.SystemApplication.Model.DoctorOut;
+import com.HealthCare.SystemApplication.Repository.AppointmentRepo;
 import com.HealthCare.SystemApplication.Repository.DoctorRepo;
+import com.HealthCare.SystemApplication.Repository.UserRepository;
 
 @Service
 public class DoctorService {
 
     @Autowired
     DoctorRepo doctorRepo;
+    @Autowired
+    AppointmentRepo appointmentRepo;
+    @Autowired
+    UserRepository userRepo;
 
     public List<Doctor> getAllDoctors() {
         return doctorRepo.findAll();
@@ -39,6 +45,20 @@ public class DoctorService {
             }
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    public DoctorOut deleteDoctor(Long id) {
+        Doctor doctor = doctorRepo.findById(id).get();
+        if (doctor == null)
+            return null;
+        else {
+            List<Appointment> appointment = appointmentRepo.findAllByDoctorDoctorId(id);
+            appointmentRepo.deleteAll(appointment);
+            doctorRepo.deleteById(id);
+            // userRepo.deleteByEmail(doctor.doctorEmail);
+            DoctorOut doctorOut = new DoctorOut(doctor);
+            return doctorOut;
         }
     }
 

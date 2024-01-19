@@ -29,7 +29,6 @@ public class Doctor {
         this.doctorFristName = user.getFirstname();
         this.doctorLastName = user.getLastname();
         this.doctorEmail = user.getEmail();
-
     }
 
     @OneToMany(mappedBy = "doctor")

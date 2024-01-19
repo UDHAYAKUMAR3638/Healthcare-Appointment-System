@@ -57,6 +57,21 @@ public class DoctorController {
         return new ResponseEntity<>(null, status);
     }
 
+    @PreAuthorize("hasRole('ADMIN') or hasRole('DOCTOR')")
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteDoctor(@PathVariable Long id) {
+        HttpStatus status;
+        try {
+            return new ResponseEntity<DoctorOut>(doctorService.deleteDoctor(id),
+                    HttpStatus.OK);
+
+        } catch (Exception e) {
+            status = HttpStatus.BAD_REQUEST;
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(null, status);
+    }
+
     @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST')")
     @GetMapping("/getAll")
     public ResponseEntity<List<DoctorOut>> getAllDoctors() {

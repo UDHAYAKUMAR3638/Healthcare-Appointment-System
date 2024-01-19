@@ -12,4 +12,6 @@ public interface AppointmentRepo extends JpaRepository<Appointment, Long> {
     // @Query("select * from appointment where doctor_id= ?0")
 
     List<Appointment> findAllByDoctorDoctorId(Long id);
+
+    Appointment findByPatientPatientId(Long id);
 }

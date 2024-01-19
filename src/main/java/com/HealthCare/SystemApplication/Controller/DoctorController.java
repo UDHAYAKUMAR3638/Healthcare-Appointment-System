@@ -23,11 +23,11 @@ public class DoctorController {
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST') or hasRole('DOCTOR')")
     @GetMapping("/appointmentDetails/{docId}")
-    ResponseEntity<List<AppointmentOut>> getDocMyAppointments(@PathVariable Long docId) {
+    ResponseEntity<List<AppointmentOut>> getDoctorAppointments(@PathVariable Long docId) {
         List<Appointment> myAppointments = null;
         HttpStatus status;
         try {
-            myAppointments = doctorService.getMyAppointments(docId);
+            myAppointments = doctorService.getDoctorAppointments(docId);
             if (myAppointments.isEmpty()) {
                 status = HttpStatus.NO_CONTENT;
             } else {

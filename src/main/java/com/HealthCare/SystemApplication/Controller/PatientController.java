@@ -19,6 +19,7 @@ import com.HealthCare.SystemApplication.Model.Appointment;
 import com.HealthCare.SystemApplication.Model.AppointmentOut;
 import com.HealthCare.SystemApplication.Model.Patient;
 import com.HealthCare.SystemApplication.Model.PatientOut;
+import com.HealthCare.SystemApplication.Repository.AppointmentRepo;
 import com.HealthCare.SystemApplication.Service.AppointmentService;
 import com.HealthCare.SystemApplication.Service.PatientService;
 
@@ -27,9 +28,11 @@ import com.HealthCare.SystemApplication.Service.PatientService;
 @PreAuthorize("hasRole('PATIENT') or hasRole('RECEPIONIST')")
 public class PatientController {
     @Autowired
-    AppointmentService appointmentService;
+    AppointmentRepo appointmentRepo;
     @Autowired
     PatientService patientService;
+    @Autowired
+    AppointmentService appointmentService;
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST') or hasRole('PATIENT')")
     @GetMapping("/{Id}")
@@ -75,6 +78,15 @@ public class PatientController {
         return new ResponseEntity<String>(msg, status);
     }
 
+    @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST') or hasRole('PATIENT')")
+    @GetMapping("/appointment/{Id}")
+    public ResponseEntity<AppointmentOut> getAppointment(@PathVariable Long Id) {
+        Appointment appointment = null;
+        appointment = appointmentRepo.findByPatientPatientId(Id);
+        AppointmentOut appointmentOut = new AppointmentOut(appointment);
+        return new ResponseEntity<AppointmentOut>(appointmentOut, HttpStatus.OK);
+    }
+
     @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR')")
     @PutMapping("/updateApp/{id}")
     public ResponseEntity<?> updateAppointment(@PathVariable Long id, @RequestBody Appointment appointment) {
@@ -90,7 +102,8 @@ public class PatientController {
         return new ResponseEntity<>(null, status);
     }
 
-    @DeleteMapping("/deleteApp/{Id}")
+    @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR')")
+    @DeleteMapping("/cancelApp/{Id}")
     ResponseEntity<String> cancelAppointment(@PathVariable Long Id) {
         appointmentService.cancelAppointment(Id);
         return new ResponseEntity<String>("Appointment Cancelled Sucessfully.", HttpStatus.OK);

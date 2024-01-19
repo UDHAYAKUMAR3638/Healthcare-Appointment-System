@@ -62,7 +62,7 @@ public class DoctorService {
         }
     }
 
-    public List<Appointment> getMyAppointments(Long docId) {
+    public List<Appointment> getDoctorAppointments(Long docId) {
         Doctor myDoc = doctorRepo.findByDoctorId(docId);
         if (myDoc == null) {
             throw new IllegalStateException("The doctor does not exist");

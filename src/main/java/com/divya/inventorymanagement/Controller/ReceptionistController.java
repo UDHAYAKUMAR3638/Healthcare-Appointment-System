@@ -38,7 +38,7 @@ public class ReceptionistController {
     @GetMapping("/doctors")
     public ResponseEntity<List<DoctorOut>> getAllDoctors() {
         List<Doctor> allDoctors = null;
-        allDoctors = patientService.getAllDoctors();
+        allDoctors = doctorService.getAllDoctors();
         List<DoctorOut> allDoctorsOut = DoctorOut.fromDoctors(allDoctors);
         return new ResponseEntity<List<DoctorOut>>(allDoctorsOut, HttpStatus.OK);
 

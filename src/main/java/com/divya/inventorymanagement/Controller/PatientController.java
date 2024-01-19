@@ -39,6 +39,7 @@ public class PatientController {
         return new ResponseEntity<List<PatientOut>>(allPatientsOut, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('PATIENT') or hasRole('RECEPTIONIST')")
     @PostMapping("/bookApp")
     public ResponseEntity<String> bookAppointment(@RequestBody Appointment appointment) {
         String msg = null;

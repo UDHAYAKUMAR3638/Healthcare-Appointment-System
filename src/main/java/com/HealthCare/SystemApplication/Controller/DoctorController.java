@@ -1,4 +1,4 @@
-package com.HealthCare.SystemApplication.Controller;
+package com.HealthCare.SystemApplication.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -6,11 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import com.HealthCare.SystemApplication.Model.Appointment;
-import com.HealthCare.SystemApplication.Model.AppointmentOut;
-import com.HealthCare.SystemApplication.Model.Doctor;
-import com.HealthCare.SystemApplication.Model.DoctorOut;
-import com.HealthCare.SystemApplication.Service.DoctorService;
+import com.HealthCare.SystemApplication.dto.AppointmentOut;
+import com.HealthCare.SystemApplication.dto.DoctorOut;
+import com.HealthCare.SystemApplication.model.Appointment;
+import com.HealthCare.SystemApplication.model.Doctor;
+import com.HealthCare.SystemApplication.service.DoctorService;
 
 import java.util.List;
 

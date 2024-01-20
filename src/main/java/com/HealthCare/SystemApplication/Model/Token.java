@@ -1,6 +1,5 @@
-package com.HealthCare.SystemApplication.token;
+package com.HealthCare.SystemApplication.model;
 
-import com.HealthCare.SystemApplication.Users.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

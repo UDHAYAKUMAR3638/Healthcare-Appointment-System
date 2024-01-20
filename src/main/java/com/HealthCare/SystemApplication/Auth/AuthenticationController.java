@@ -1,4 +1,4 @@
-package com.HealthCare.SystemApplication.Auth;
+package com.HealthCare.SystemApplication.auth;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

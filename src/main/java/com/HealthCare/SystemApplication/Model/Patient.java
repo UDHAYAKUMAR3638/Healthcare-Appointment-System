@@ -1,6 +1,5 @@
-package com.HealthCare.SystemApplication.Model;
+package com.HealthCare.SystemApplication.model;
 
-import com.HealthCare.SystemApplication.Users.User;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;

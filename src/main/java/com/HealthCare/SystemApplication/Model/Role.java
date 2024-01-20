@@ -1,4 +1,4 @@
-package com.HealthCare.SystemApplication.Users;
+package com.HealthCare.SystemApplication.model;
 
 public enum Role {
     PATIENT,

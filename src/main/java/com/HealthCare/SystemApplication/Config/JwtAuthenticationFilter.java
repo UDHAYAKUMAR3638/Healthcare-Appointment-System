@@ -1,4 +1,4 @@
-package com.HealthCare.SystemApplication.Config;
+package com.HealthCare.SystemApplication.config;
 
 import java.io.IOException;
 
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.HealthCare.SystemApplication.Repository.TokenRepository;
-import com.HealthCare.SystemApplication.Service.JwtService;
+import com.HealthCare.SystemApplication.service.JwtService;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

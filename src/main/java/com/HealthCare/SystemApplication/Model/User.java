@@ -1,4 +1,4 @@
-package com.HealthCare.SystemApplication.Users;
+package com.HealthCare.SystemApplication.model;
 
 import java.util.Collection;
 import java.util.List;

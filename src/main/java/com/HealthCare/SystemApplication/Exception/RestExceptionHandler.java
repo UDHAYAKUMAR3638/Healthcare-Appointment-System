@@ -1,4 +1,4 @@
-package com.HealthCare.SystemApplication.Exception;
+package com.HealthCare.SystemApplication.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.HealthCare.SystemApplication.Controller;
+package com.HealthCare.SystemApplication.controller;
 
 import java.util.List;
 
@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.HealthCare.SystemApplication.Model.Appointment;
-import com.HealthCare.SystemApplication.Model.AppointmentOut;
-import com.HealthCare.SystemApplication.Model.Patient;
-import com.HealthCare.SystemApplication.Model.PatientOut;
-import com.HealthCare.SystemApplication.Service.AppointmentService;
-import com.HealthCare.SystemApplication.Service.PatientService;
+import com.HealthCare.SystemApplication.dto.PatientOut;
+import com.HealthCare.SystemApplication.model.Appointment;
+import com.HealthCare.SystemApplication.dto.AppointmentOut;
+import com.HealthCare.SystemApplication.model.Patient;
+import com.HealthCare.SystemApplication.service.AppointmentService;
+import com.HealthCare.SystemApplication.service.PatientService;
 
 @RestController
 @RequestMapping("patient")

@@ -1,11 +1,12 @@
-package com.HealthCare.SystemApplication.Service;
+package com.HealthCare.SystemApplication.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.HealthCare.SystemApplication.Model.Appointment;
-import com.HealthCare.SystemApplication.Model.AppointmentOut;
 import com.HealthCare.SystemApplication.Repository.AppointmentRepo;
+import com.HealthCare.SystemApplication.model.Appointment;
+import com.HealthCare.SystemApplication.dto.AppointmentOut;
+
 
 @Service
 public class AppointmentService {

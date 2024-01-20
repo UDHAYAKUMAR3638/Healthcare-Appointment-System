@@ -1,4 +1,4 @@
-package com.HealthCare.SystemApplication.Config;
+package com.HealthCare.SystemApplication.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,7 +1,9 @@
-package com.HealthCare.SystemApplication.Model;
+package com.HealthCare.SystemApplication.dto;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.HealthCare.SystemApplication.model.Doctor;
 
 import jakarta.persistence.*;
 import lombok.Data;

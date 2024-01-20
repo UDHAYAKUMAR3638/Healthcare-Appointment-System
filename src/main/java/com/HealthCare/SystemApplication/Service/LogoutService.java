@@ -1,4 +1,4 @@
-package com.HealthCare.SystemApplication.Service;
+package com.HealthCare.SystemApplication.service;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutHandler;

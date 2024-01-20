@@ -1,4 +1,4 @@
-package com.HealthCare.SystemApplication.Auth;
+package com.HealthCare.SystemApplication.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

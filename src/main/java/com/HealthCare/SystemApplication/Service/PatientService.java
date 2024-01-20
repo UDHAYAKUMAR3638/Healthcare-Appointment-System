@@ -1,18 +1,18 @@
-package com.HealthCare.SystemApplication.Service;
+package com.HealthCare.SystemApplication.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.HealthCare.SystemApplication.Auth.AuthenticationService;
-import com.HealthCare.SystemApplication.Model.Appointment;
-import com.HealthCare.SystemApplication.Model.Patient;
-import com.HealthCare.SystemApplication.Model.PatientOut;
 import com.HealthCare.SystemApplication.Repository.AppointmentRepo;
 import com.HealthCare.SystemApplication.Repository.PatientRepo;
 import com.HealthCare.SystemApplication.Repository.TokenRepository;
 import com.HealthCare.SystemApplication.Repository.UserRepository;
-import com.HealthCare.SystemApplication.Users.User;
-import com.HealthCare.SystemApplication.token.Token;
+import com.HealthCare.SystemApplication.auth.AuthenticationService;
+import com.HealthCare.SystemApplication.dto.PatientOut;
+import com.HealthCare.SystemApplication.model.Appointment;
+import com.HealthCare.SystemApplication.model.Patient;
+import com.HealthCare.SystemApplication.model.Token;
+import com.HealthCare.SystemApplication.model.User;
 
 import java.util.List;
 

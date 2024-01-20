@@ -1,19 +1,19 @@
-package com.HealthCare.SystemApplication.Service;
+package com.HealthCare.SystemApplication.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.HealthCare.SystemApplication.Model.Appointment;
-import com.HealthCare.SystemApplication.Model.Doctor;
-import com.HealthCare.SystemApplication.Model.DoctorOut;
 import com.HealthCare.SystemApplication.Repository.AppointmentRepo;
 import com.HealthCare.SystemApplication.Repository.DoctorRepo;
 import com.HealthCare.SystemApplication.Repository.TokenRepository;
 import com.HealthCare.SystemApplication.Repository.UserRepository;
-import com.HealthCare.SystemApplication.Users.User;
-import com.HealthCare.SystemApplication.token.Token;
+import com.HealthCare.SystemApplication.dto.DoctorOut;
+import com.HealthCare.SystemApplication.model.Appointment;
+import com.HealthCare.SystemApplication.model.Doctor;
+import com.HealthCare.SystemApplication.model.Token;
+import com.HealthCare.SystemApplication.model.User;
 
 @Service
 public class DoctorService {

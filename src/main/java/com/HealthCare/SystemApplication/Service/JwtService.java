@@ -1,4 +1,4 @@
-package com.HealthCare.SystemApplication.Service;
+package com.HealthCare.SystemApplication.service;
 
 import java.security.Key;
 import java.util.Date;

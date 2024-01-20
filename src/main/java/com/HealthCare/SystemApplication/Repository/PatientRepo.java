@@ -2,7 +2,7 @@ package com.HealthCare.SystemApplication.Repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.HealthCare.SystemApplication.Model.Patient;
+import com.HealthCare.SystemApplication.model.Patient;
 
 public interface PatientRepo extends JpaRepository<Patient, Long> {
 

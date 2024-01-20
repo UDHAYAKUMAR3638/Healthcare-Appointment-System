@@ -1,4 +1,4 @@
-package com.HealthCare.SystemApplication.Exception;
+package com.HealthCare.SystemApplication.exception;
 
 public class EmailAlreadyExistsException extends RuntimeException {
 

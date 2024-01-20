@@ -1,8 +1,11 @@
-package com.HealthCare.SystemApplication.Model;
+package com.HealthCare.SystemApplication.dto;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.HealthCare.SystemApplication.model.Appointment;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

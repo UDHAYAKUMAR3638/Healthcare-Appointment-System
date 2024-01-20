@@ -1,24 +1,24 @@
-package com.HealthCare.SystemApplication.Auth;
+package com.HealthCare.SystemApplication.auth;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.HealthCare.SystemApplication.Exception.EmailAlreadyExistsException;
-import com.HealthCare.SystemApplication.Model.Doctor;
-import com.HealthCare.SystemApplication.Model.Patient;
-import com.HealthCare.SystemApplication.Model.Receptionist;
 import com.HealthCare.SystemApplication.Repository.DoctorRepo;
 import com.HealthCare.SystemApplication.Repository.PatientRepo;
 import com.HealthCare.SystemApplication.Repository.ReceptionistRepo;
 import com.HealthCare.SystemApplication.Repository.TokenRepository;
 import com.HealthCare.SystemApplication.Repository.UserRepository;
-import com.HealthCare.SystemApplication.Service.JwtService;
-import com.HealthCare.SystemApplication.Users.Role;
-import com.HealthCare.SystemApplication.Users.User;
-import com.HealthCare.SystemApplication.token.Token;
-import com.HealthCare.SystemApplication.token.TokenType;
+import com.HealthCare.SystemApplication.exception.EmailAlreadyExistsException;
+import com.HealthCare.SystemApplication.model.Doctor;
+import com.HealthCare.SystemApplication.model.Patient;
+import com.HealthCare.SystemApplication.model.Receptionist;
+import com.HealthCare.SystemApplication.model.Role;
+import com.HealthCare.SystemApplication.model.Token;
+import com.HealthCare.SystemApplication.model.TokenType;
+import com.HealthCare.SystemApplication.model.User;
+import com.HealthCare.SystemApplication.service.JwtService;
 
 import lombok.RequiredArgsConstructor;
 

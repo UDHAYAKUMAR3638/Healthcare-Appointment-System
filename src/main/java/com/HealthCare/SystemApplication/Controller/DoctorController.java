@@ -10,7 +10,7 @@ import com.HealthCare.SystemApplication.dto.AppointmentOut;
 import com.HealthCare.SystemApplication.dto.DoctorOut;
 import com.HealthCare.SystemApplication.model.Appointment;
 import com.HealthCare.SystemApplication.model.Doctor;
-import com.HealthCare.SystemApplication.service.DoctorService;
+import com.HealthCare.SystemApplication.service.implementation.DoctorServiceImp;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import java.util.List;
 public class DoctorController {
 
     @Autowired
-    DoctorService doctorService;
+    DoctorServiceImp doctorService;
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST') or hasRole('DOCTOR')")
     @GetMapping("/appointmentDetails/{docId}")

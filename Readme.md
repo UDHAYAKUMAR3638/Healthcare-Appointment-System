@@ -48,20 +48,6 @@ The project follows a structured and organized architecture:
 - **Get Doctor Appointments:** `GET /doctor/appointmentDetails/{doctorId}`
 - **Get All Doctor:** `GET /doctor/getAll`
 
-The API endpoints are documented, adhering to REST principles, and provide the core features of the Doctor's Appointment Application.
-
-## Database Design
-
-The application uses a relational database to store data, including doctor and patient information, appointments, and authentication tokens. Key attributes and tables include:
-
-### Doctor Table
-
-| Column Name    | Data Type    | Description                   |
-| -------------- | ------------ | ----------------------------- |
-| doctorId       | INT          | Unique identifier for doctors |
-| doctorName     | VARCHAR(255) | Name of the doctor            |
-| specialization | VARCHAR(255) | Doctor's specialization       |
-
 ### Doctor Table Description
 
 - `doctorId`: Unique identifier for each doctor.
@@ -69,73 +55,40 @@ The application uses a relational database to store data, including doctor and p
 - `specialization`: The doctor's specialization.
 - `appointments`: A list of appointments associated with the doctor.
 
-### Patient Table
-
-| Column Name      | Data Type    | Description                         |
-| ---------------- | ------------ | ----------------------------------- |
-| patientId        | INT          | Unique identifier for patients      |
-| patientFirstName | VARCHAR(255) | First name of the patient           |
-| patientLastName  | VARCHAR(255) | Last name of the patient            |
-| patientEmail     | VARCHAR(255) | Email address of the patient        |
-| patientPassword  | VARCHAR(255) | Encrypted password of the patient   |
-| patientContact   | VARCHAR(20)  | Contact information for the patient |
-
 ### Patient Table Description
 
 - `patientId`: Unique identifier for each patient.
 - `patientFirstName`: First name of the patient.
 - `patientLastName`: Last name of the patient.
 - `patientEmail`: Unique email address for the patient.
-- `patientPassword`: Encrypted password for authentication.
 - `patientContact`: Contact information for the patient.
 - `appointment`: The patient's appointment.
 
-### Appointment Table
-
-| Column Name   | Data Type | Description                        |
-| ------------- | --------- | ---------------------------------- |
-| appointmentId | INT       | Unique identifier for appointments |
-| time          | DATETIME  | Date and time of the appointment   |
-| doctor_doc_id | INT       | Foreign key referencing the doctor |
-
 ### Appointment Table Description
 
-- `id`: Embedded primary key consisting of appointmentId and time.
-- `doctor`: A many-to-one relationship with the doctor.
-- `patient`: A one-to-one relationship with the patient.
+- `appointmentId`: Unique identifier for each appointment.
+- `time`: Appointment date and time.
+- `doctor`: It has doctor details.
+- `patient`: It has patient details.
+- `appointmentStatus`: The patient's appointment completed or not.
 
-### AuthenticationToken Table
+### Token Table Description
 
-| Column Name       | Data Type    | Description                         |
-| ----------------- | ------------ | ----------------------------------- |
-| tokenId           | INT          | Unique identifier for tokens        |
-| token             | VARCHAR(255) | Authentication token value          |
-| tokenCreationDate | DATE         | Date of token creation              |
-| fk_patient_ID     | INT          | Foreign key referencing the patient |
-
-### Authentication Token Table Description
-
-- `tokenId`: Unique identifier for each token.
+- `id`: Unique identifier for each token.
 - `token`: A unique token for user authentication.
-- `tokenCreationDate`: The date when the token was created.
-- `patient`: A one-to-one relationship with the patient.
+- `tokenType`: stores token type.
+- `expired`: token whether token is expired or not in bit type.
+- `revoked`: token revoked status is stored in bit type.
+- `user`: Many-to-one relationship with the patient.
 
-## Data Structures Used
+### User Table Description
 
-1. **Entities**:
-
-   - **Doctor**: Represents a doctor with attributes like `doctorId`, `doctorName`, `specialization`, and a list of `appointments`.
-
-   - **Patient**: Represents a patient with attributes like `patientId`, `patientFirstName`, `patientLastName`, `patientEmail`, `patientPassword`, `patientContact`, and an `appointment`.
-
-   - **Appointment**: Represents an appointment between a doctor and a patient. It contains an embedded primary key `id`, a reference to the associated `doctor`, and a reference to the `patient`.
-
-   - **Authentication Token**: Represents an authentication token with attributes like `tokenId`, `token`, `tokenCreationDate`, and a reference to the associated `patient`.
-
-2. **Repositories**:
-   - JPA repositories for data access, including repositories for doctors, patients, appointments, and authentication tokens.
-
-In your Doctor's Appointment Application, you have various data structures, including entities and repositories. Additionally, ArrayLists are utilized for efficiently managing lists of entities. Let's delve into the detailed data structures used, with a specific focus on ArrayLists:
+- `id`: Unique identifier for each user.
+- `firstname`: User first name.
+- `lastname`: User last name.
+- `email`: User email.
+- `password`: Encrypted user password.
+- `role`: It has roles of users like [PATIENT,ADMIN, DOCTOR, RECEPTIONIST].
 
 ### Detailed Data Structures
 
@@ -206,30 +159,14 @@ ArrayLists are used in your application to efficiently manage lists of entities.
 - **AuthenticationToken Entity**:
   - There isn't an ArrayList in the `AuthenticationToken` entity, but it's associated with a patient using a reference. The token and associated data are stored as individual records in the database.
 
-> ArrayLists, as dynamic lists, provide flexibility for storing and managing multiple entities efficiently within your application.
-
-> The actual storage and retrieval of data are typically handled by the JPA repositories and underlying database systems.
-
-> The use of data structures like entities, repositories, and authentication tokens ensures efficient data management and data integrity within the application.
-
-## Database Configuration
-
-The database connection properties, including the URL, username, and password, are specified in the `application.properties` file. Ensure that these properties are correctly configured to connect to your MySQL database.
-
-Example configuration for MySQL:
+configuration for MySQL:
 
 ```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/HospitalManagement
+spring.datasource.url=jdbc:mysql://localhost:3306/helathcareappointment
 spring.datasource.username=root
-spring.datasource.password=9892321787@As
-spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
-spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
+spring.datasource.password=`your password`
+spring.jpa.hibernate.ddl-auto=update
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+
 ```
-
-Please replace `spring.datasource.url`, `spring.datasource.username`, and `spring.datasource.password` with your database connection details.
-
-## Project Summary
-
-The Doctor's Appointment Application is a Spring Boot-based system that simplifies doctor-patient appointment management. It provides RESTful API endpoints for booking and canceling appointments, user authentication, and doctor profiles.
-
-The application is built on a solid foundation, utilizing Spring Boot and MySQL for data storage, and it follows best practices for clean code, separation of concerns, and secure user data handling.

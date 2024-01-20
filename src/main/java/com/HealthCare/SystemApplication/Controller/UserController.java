@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.HealthCare.SystemApplication.model.User;
-import com.HealthCare.SystemApplication.service.UserService;
+import com.HealthCare.SystemApplication.service.implementation.UserServiceImp;
 
 @RestController
 @RequestMapping("user")
 public class UserController {
     @Autowired
-    UserService userService;
+    UserServiceImp userService;
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/get/{Id}")

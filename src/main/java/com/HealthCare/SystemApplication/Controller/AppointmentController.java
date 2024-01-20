@@ -17,13 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.HealthCare.SystemApplication.dto.AppointmentOut;
 import com.HealthCare.SystemApplication.model.Appointment;
-import com.HealthCare.SystemApplication.service.AppointmentService;
+import com.HealthCare.SystemApplication.service.implementation.AppointmentServiceImp;
 
 @RestController
 @RequestMapping("appointment")
 public class AppointmentController {
     @Autowired
-    AppointmentService appointmentService;
+    AppointmentServiceImp appointmentService;
 
     @PreAuthorize("hasRole('PATIENT') or hasRole('RECEPTIONIST')")
     @PostMapping("/book")

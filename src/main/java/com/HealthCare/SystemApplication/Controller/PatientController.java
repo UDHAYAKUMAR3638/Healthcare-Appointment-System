@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.HealthCare.SystemApplication.dto.PatientOut;
 import com.HealthCare.SystemApplication.model.Patient;
-import com.HealthCare.SystemApplication.service.AppointmentService;
-import com.HealthCare.SystemApplication.service.PatientService;
+import com.HealthCare.SystemApplication.service.implementation.AppointmentServiceImp;
+import com.HealthCare.SystemApplication.service.implementation.PatientServiceImp;
 
 @RestController
 @RequestMapping("patient")
@@ -25,9 +25,9 @@ import com.HealthCare.SystemApplication.service.PatientService;
 public class PatientController {
 
     @Autowired
-    PatientService patientService;
+    PatientServiceImp patientService;
     @Autowired
-    AppointmentService appointmentService;
+    AppointmentServiceImp appointmentService;
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST') or hasRole('PATIENT')")
     @GetMapping("/{Id}")

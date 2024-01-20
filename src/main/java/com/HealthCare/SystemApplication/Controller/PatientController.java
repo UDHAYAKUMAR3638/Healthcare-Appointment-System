@@ -9,15 +9,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.HealthCare.SystemApplication.dto.PatientOut;
-import com.HealthCare.SystemApplication.model.Appointment;
-import com.HealthCare.SystemApplication.dto.AppointmentOut;
 import com.HealthCare.SystemApplication.model.Patient;
 import com.HealthCare.SystemApplication.service.AppointmentService;
 import com.HealthCare.SystemApplication.service.PatientService;
@@ -61,43 +58,6 @@ public class PatientController {
     }
 
     @PreAuthorize("hasRole('PATIENT') or hasRole('RECEPTIONIST')")
-    @PostMapping("/bookApp")
-    public ResponseEntity<String> bookAppointment(@RequestBody Appointment appointment) {
-        String msg = null;
-        HttpStatus status;
-        try {
-            appointmentService.bookAppointment(appointment);
-            msg = " Appointment booked successfully";
-            status = HttpStatus.OK;
-        } catch (Exception e) {
-            msg = "Book Another Appointment as this appointment is already booked";
-            status = HttpStatus.BAD_REQUEST;
-        }
-        return new ResponseEntity<String>(msg, status);
-    }
-
-    @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST') or hasRole('PATIENT')")
-    @GetMapping("/appointment/{Id}")
-    public ResponseEntity<AppointmentOut> getAppointment(@PathVariable Long Id) {
-        return new ResponseEntity<AppointmentOut>(appointmentService.getAppointment(Id), HttpStatus.OK);
-    }
-
-    @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR')")
-    @PutMapping("/updateApp/{id}")
-    public ResponseEntity<?> updateAppointment(@PathVariable Long id, @RequestBody Appointment appointment) {
-        HttpStatus status;
-        try {
-            return new ResponseEntity<AppointmentOut>(appointmentService.updateAppointment(id, appointment),
-                    HttpStatus.OK);
-
-        } catch (Exception e) {
-            status = HttpStatus.BAD_REQUEST;
-            e.printStackTrace();
-        }
-        return new ResponseEntity<>(null, status);
-    }
-
-    @PreAuthorize("hasRole('PATIENT') or hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deletePatient(@PathVariable Long id) {
         HttpStatus status;
@@ -110,13 +70,6 @@ public class PatientController {
             e.printStackTrace();
         }
         return new ResponseEntity<>(null, status);
-    }
-
-    @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR')")
-    @DeleteMapping("/cancelApp/{Id}")
-    ResponseEntity<String> cancelAppointment(@PathVariable Long Id) {
-        appointmentService.cancelAppointment(Id);
-        return new ResponseEntity<String>("Appointment Cancelled Sucessfully.", HttpStatus.OK);
     }
 
 }

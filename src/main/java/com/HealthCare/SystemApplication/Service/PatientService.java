@@ -50,14 +50,14 @@ public class PatientService {
             if (patient1 == null)
                 return null;
             else {
-                if (patient.patientFirstName != null)
-                    patient1.patientFirstName = patient.patientFirstName;
-                if (patient.patientLastName != null)
-                    patient1.patientLastName = patient.patientLastName;
-                if (patient.patientContact != null)
-                    patient1.patientContact = patient.patientContact;
-                if (patient.patientEmail != null)
-                    patient1.patientEmail = patient.patientEmail;
+                if (patient.getPatientFirstName() != null)
+                    patient1.setPatientFirstName(patient.getPatientFirstName());
+                if (patient.getPatientLastName() != null)
+                    patient1.setPatientLastName(patient.getPatientLastName());
+                if (patient.getPatientContact() != null)
+                    patient1.setPatientContact(patient.getPatientContact());
+                if (patient.getPatientEmail() != null)
+                    patient1.setPatientEmail(patient.getPatientEmail());
                 PatientOut patientOut = new PatientOut(patientRepo.save(patient1));
                 return patientOut;
             }

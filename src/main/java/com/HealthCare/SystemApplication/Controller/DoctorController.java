@@ -82,4 +82,14 @@ public class DoctorController {
 
     }
 
+    @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST')")
+    @GetMapping("/{Id}")
+    public ResponseEntity<DoctorOut> getDoctor(@PathVariable Long Id) {
+        Doctor doctor = null;
+        doctor = doctorService.getDoctor(Id);
+        DoctorOut doctorOut = new DoctorOut(doctor);
+        return new ResponseEntity<DoctorOut>(doctorOut, HttpStatus.OK);
+
+    }
+
 }

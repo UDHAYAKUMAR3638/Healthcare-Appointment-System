@@ -19,11 +19,11 @@ public class PatientOut {
     private String patientContact;
 
     public PatientOut(Patient patient) {
-        this.patientId = patient.patientId;
-        this.patientFirstName = patient.patientFirstName;
-        this.patientLastName = patient.patientLastName;
-        this.patientEmail = patient.patientEmail;
-        this.patientContact = patient.patientContact;
+        this.patientId = patient.getPatientId();
+        this.patientFirstName = patient.getPatientFirstName();
+        this.patientLastName = patient.getPatientLastName();
+        this.patientEmail = patient.getPatientEmail();
+        this.patientContact = patient.getPatientContact();
     }
 
     public static List<PatientOut> fromPatients(List<Patient> patients) {

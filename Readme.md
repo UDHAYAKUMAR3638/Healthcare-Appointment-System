@@ -13,93 +13,39 @@ The Health Care Appointment System is a Spring Boot-based system designed to fac
 The project follows a structured and organized architecture:
 
 - **Entities:** This includes entities such as `Doctor`, `Patient`, `Appointment`, `Receptionist`, `User`and `Token` to model the data.
-- **Repository:** This includes repository such as `AppointmentRepo`, `PatientRepo`, `DoctorRepo`, `ReceptionistRepo`and `TokenRepo` to model the data.
-- **Service Classes:** Business logic is implemented in service classes for managing appointments, authentication, patients and doctors.
-- **Controller Classes:** These classes define and document RESTful API endpoints for booking appointments, user authentication, and doctor profiles.
+- **Repository:** This includes repository such as `AppointmentRepo`, `PatientRepo`, `DoctorRepo`, `ReceptionistRepo`, `UserRepo` and `TokenRepo` to access the entity data.
+- **Services:** logic is implemented in service classes such as `AppointmentService`, `PatientService`, `DoctorService`, `ReceptionistService` and `UserService`.
+- **Controller Classes:** These classes define and document RESTful API endpoints includes `DoctorController`, `PatientController`, `ReceptionistController` and `UserController`.
 
-## Data Flow
+## User Creation
 
-The Health Care Appointment System follows a structured data flow for managing appointments and user authentication:
+- **Create User:** `POST /api/auth/register`
+- **Authenticate User:** `POST /api/auth/authenticate`
 
-1. **Appointment Booking**:
+## Patient Controller
 
-   - A patient initiates an appointment booking by sending a `POST` request to the `/patient/bookAppointment` endpoint, specifying the doctor and the appointment time.
+- **Get Patient:** `GET /patient/{Id}`
+- **Update Patient:** `PUT /patient/update/{Id}`
+- **Get All Patient:** `GET /patient/getAll`
+- **Delete Patient:** `DELETE /patient/delete/{Id}`
 
-   - database if the specified appointment slot is available.
+### Appointment Controller
 
-   - If the slot is available, a new `Appointment` entity is created and saved in the database, associating the patient and the doctor.
-
-   - The system sends a response indicating a successful booking.
-
-2. **Appointment Cancellation**:
-
-   - A patient can cancel an appointment by sending a `DELETE` request to the `/api/appointments/cancel/{appointmentId}` endpoint, specifying the appointment to cancel.
-
-   - The system checks if the provided appointment exists and is associated with the patient.
-
-   - If the appointment is valid, it is deleted from the database.
-
-   - The system sends a response confirming the appointment cancellation.
-
-3. **Get All Doctors**:
-
-   - To retrieve a list of all available doctors, a patient sends a `GET` request to the `/api/doctors` endpoint.
-
-   - The system queries the database to fetch the list of all doctors.
-
-   - The system sends a response containing the list of doctors.
-
-4. **User Registration (Sign Up)**:
-
-   - A patient can register by sending a `POST` request to the `/api/patients/signup` endpoint, providing registration details such as first name, last name, email, password, and contact information.
-
-   - The system checks if the provided email is unique, creates a new `Patient` entity with the user's information, and stores it in the database after encrypting the password.
-
-   - The system sends a response indicating successful registration.
-
-5. **User Authentication (Sign In)**:
-
-   - To authenticate, a patient sends a `POST` request to the `/api/patients/signin` endpoint with their email and password.
-
-   - The system validates the provided email and password, checking against the stored data in the database.
-
-   - If the credentials are valid, the system generates an authentication token, associates it with the patient, and saves it in the database.
-
-   - The system sends a response with the authentication token.
-
-6. **Security**:
-
-   - User authentication and authorization are handled securely, ensuring that user credentials are protected and that authentication tokens are used for secure API access.
-
-7. **Data Persistence**:
-
-   - The application relies on a relational database for data storage. Entities like doctors, patients, appointments, and authentication tokens are mapped to the corresponding database tables.
-
-8. **RESTful API Endpoints**:
-   - RESTful API endpoints provide a clear interface for patients to book and cancel appointments and interact with doctors. These endpoints are documented using Swagger UI.
-
-> This data flow demonstrates how patients can interact with the application, book appointments with doctors, and manage their own profiles through registration and authentication.
-
-## RESTful API Endpoints
-
-The application provides RESTful API endpoints for various functionalities:
-
-### Appointment Management
-
-- **Book Appointment:** `POST /api/appointments/book`
-- **Cancel Appointment:** `DELETE /api/appointments/cancel/{appointmentId}`
-
-### User Authentication
-
-- **Sign Up:** `POST /api/auth/signup`
-- **Sign In:** `POST /api/auth/signin`
-- **Sign Out:** `POST /api/auth/signout`
+- **Book Appointment:** `POST /api/appointment/book`
+- **Cancel Appointment:** `DELETE /api/appointment/cancel/{appointmentId}`
+- **Update Appointment By AppointmentId:** `PUT /api/appointment/updateById/{appointmentId}`
+- **Update Appointment By DoctorId:** `PUT /api/appointment/updateByDoctorId/{doctorId}`
+- **Update Appointment By PatientId:** `PUT /api/appointment/updateByPatientId/{patientId}`
+- **View Patient Appointment:** `GET /appointment/patientAppointment/{patientId}`
+- **View Doctor Appointment:** `GET /appointment/doctorAppointment/{doctorId}`
+- **View All Appointment:** `GET /appointment/getAll`
 
 ### Doctor Profiles
 
-- **Get All Doctors:** `GET /api/doctors`
-- **Add Doctor:** `POST /api/doctors/add`
-- **Get Doctor Appointments:** `GET /api/doctors/appointments/{doctorId}`
+- **Get Doctor:** `GET /doctor/{DoctorId}`
+- **Update Doctor:** `PUT /doctor/update/{DoctorId}`
+- **Delete Doctor:** `DELETE /doctor/delete/{DoctorId}`
+- **Get Doctor Appointments:** `GET /doctor/appointmentDetails/{doctorId}`
 
 The API endpoints are documented, adhering to REST principles, and provide the core features of the Doctor's Appointment Application.
 

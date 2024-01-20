@@ -37,14 +37,14 @@ public class DoctorService {
             if (doctor1 == null)
                 return null;
             else {
-                if (doctor.doctorFristName != null)
-                    doctor1.doctorFristName = doctor.doctorFristName;
-                if (doctor.doctorLastName != null)
-                    doctor1.doctorLastName = doctor.doctorLastName;
-                if (doctor.doctorEmail != null)
-                    doctor1.doctorEmail = doctor.doctorEmail;
-                if (doctor.specialization != null)
-                    doctor1.specialization = doctor.specialization;
+                if (doctor.getDoctorFristName() != null)
+                    doctor1.setDoctorFristName(doctor.getDoctorFristName());
+                if (doctor.getDoctorLastName() != null)
+                    doctor1.setDoctorFristName(doctor.getDoctorLastName());
+                if (doctor.getDoctorEmail() != null)
+                    doctor1.setDoctorEmail(doctor.getDoctorEmail());
+                if (doctor.getSpecialization() != null)
+                    doctor1.setSpecialization(doctor.getSpecialization());
                 DoctorOut doctorOut = new DoctorOut(doctorRepo.save(doctor1));
                 return doctorOut;
             }
@@ -76,5 +76,9 @@ public class DoctorService {
             throw new IllegalStateException("The doctor does not exist");
         }
         return myDoc.getAppointments();
+    }
+
+    public Doctor getDoctor(Long id) {
+        return doctorRepo.findById(id).get();
     }
 }

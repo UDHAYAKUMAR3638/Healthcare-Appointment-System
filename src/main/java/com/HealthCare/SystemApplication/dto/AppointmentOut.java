@@ -22,10 +22,10 @@ public class AppointmentOut {
     public long patientId;
 
     public AppointmentOut(Appointment appointment) {
-        this.appointmentId = appointment.appointmentId;
-        this.time = appointment.time;
-        this.doctorId = appointment.doctor.getDoctorId();
-        this.patientId = appointment.patient.getPatientId();
+        this.appointmentId = appointment.getAppointmentId();
+        this.time = appointment.getTime();
+        this.doctorId = appointment.getDoctor().getDoctorId();
+        this.patientId = appointment.getPatient().getPatientId();
 
     }
 

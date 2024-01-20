@@ -14,12 +14,12 @@ import lombok.NoArgsConstructor;
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long patientId;
-    private String patientFirstName;
-    private String patientLastName;
+    public Long patientId;
+    public String patientFirstName;
+    public String patientLastName;
     @Column(nullable = false, unique = true)
-    private String patientEmail;
-    private String patientContact;
+    public String patientEmail;
+    public String patientContact;
 
     public Patient(String patientFirstName, String patientLastName, String patientEmail, String patientContact) {
         this.patientFirstName = patientFirstName;

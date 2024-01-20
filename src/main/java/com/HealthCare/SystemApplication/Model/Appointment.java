@@ -17,15 +17,15 @@ import lombok.NoArgsConstructor;
 public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long appointmentId;
+    public Long appointmentId;
 
-    private LocalDateTime time;
+    public LocalDateTime time;
 
     @ManyToOne
     @JoinColumn(name = "doctor_id") // add foreign key column with primary key column in Doctor
-    private Doctor doctor;
+    public Doctor doctor;
 
     @OneToOne
     @JoinColumn(name = "patient_id")
-    private Patient patient;
+    public Patient patient;
 }

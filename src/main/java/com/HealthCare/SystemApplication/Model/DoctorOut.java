@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
+@Entity
 public class DoctorOut {
     @Id
     private Long doctorId;

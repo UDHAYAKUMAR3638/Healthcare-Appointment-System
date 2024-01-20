@@ -34,8 +34,9 @@ public class DoctorController {
                 status = HttpStatus.OK;
             }
         } catch (Exception e) {
-            System.out.println("Given doctor Id is not valid");
+            System.out.println("The doc Id is not valid");
             status = HttpStatus.BAD_REQUEST;
+
         }
         List<AppointmentOut> appointmentOut = AppointmentOut.fromAppointments(myAppointments);
         return new ResponseEntity<List<AppointmentOut>>(appointmentOut, status);
@@ -44,23 +45,31 @@ public class DoctorController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('DOCTOR')")
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateDoctor(@PathVariable Long id, @RequestBody Doctor doctor) {
+        HttpStatus status;
         try {
-            return new ResponseEntity<DoctorOut>(doctorService.updateDoctor(id, doctor), HttpStatus.OK);
+            return new ResponseEntity<DoctorOut>(doctorService.updateDoctor(id, doctor),
+                    HttpStatus.OK);
 
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            status = HttpStatus.BAD_REQUEST;
+            e.printStackTrace();
         }
+        return new ResponseEntity<>(null, status);
     }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('DOCTOR')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteDoctor(@PathVariable Long id) {
+        HttpStatus status;
         try {
-            return new ResponseEntity<DoctorOut>(doctorService.deleteDoctor(id), HttpStatus.OK);
+            return new ResponseEntity<DoctorOut>(doctorService.deleteDoctor(id),
+                    HttpStatus.OK);
 
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            status = HttpStatus.BAD_REQUEST;
+            e.printStackTrace();
         }
+        return new ResponseEntity<>(null, status);
     }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST')")

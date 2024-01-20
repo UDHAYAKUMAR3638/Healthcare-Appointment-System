@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 
 import com.HealthCare.SystemApplication.Repository.AppointmentRepo;
 import com.HealthCare.SystemApplication.Repository.PatientRepo;
-import com.HealthCare.SystemApplication.Repository.TokenRepository;
-import com.HealthCare.SystemApplication.Repository.UserRepository;
+import com.HealthCare.SystemApplication.Repository.TokenRepo;
+import com.HealthCare.SystemApplication.Repository.UserRepo;
 import com.HealthCare.SystemApplication.auth.AuthenticationService;
 import com.HealthCare.SystemApplication.dto.PatientOut;
 import com.HealthCare.SystemApplication.model.Appointment;
@@ -32,9 +32,9 @@ public class PatientService {
     AppointmentRepo appointmentRepo;
 
     @Autowired
-    UserRepository userRepo;
+    UserRepo userRepo;
     @Autowired
-    TokenRepository tokenRepo;
+    TokenRepo tokenRepo;
 
     public Patient getPatient(Long Id) {
         return patientRepo.findById(Id).orElse(null);

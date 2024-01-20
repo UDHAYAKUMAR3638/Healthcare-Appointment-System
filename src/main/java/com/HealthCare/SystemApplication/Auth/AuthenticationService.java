@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import com.HealthCare.SystemApplication.Repository.DoctorRepo;
 import com.HealthCare.SystemApplication.Repository.PatientRepo;
 import com.HealthCare.SystemApplication.Repository.ReceptionistRepo;
-import com.HealthCare.SystemApplication.Repository.TokenRepository;
-import com.HealthCare.SystemApplication.Repository.UserRepository;
+import com.HealthCare.SystemApplication.Repository.TokenRepo;
+import com.HealthCare.SystemApplication.Repository.UserRepo;
 import com.HealthCare.SystemApplication.exception.EmailAlreadyExistsException;
 import com.HealthCare.SystemApplication.model.Doctor;
 import com.HealthCare.SystemApplication.model.Patient;
@@ -26,11 +26,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthenticationService {
 
-        private final UserRepository userRepository;
+        private final UserRepo userRepository;
         private final PatientRepo patientRepo;
         private final DoctorRepo doctorRepo;
         private final ReceptionistRepo recepRepo;
-        private final TokenRepository tokenRepository;
+        private final TokenRepo tokenRepository;
         private final PasswordEncoder passwordEncoder;
         private final AuthenticationManager authenticationManager;
         private final JwtService jwtService;

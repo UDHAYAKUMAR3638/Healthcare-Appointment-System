@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.HealthCare.SystemApplication.model.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepo extends JpaRepository<User, Integer> {
     public Optional<User> findByEmail(String email);
 
     public boolean existsByEmail(String email);

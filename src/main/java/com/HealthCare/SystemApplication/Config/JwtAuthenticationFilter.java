@@ -10,7 +10,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.HealthCare.SystemApplication.Repository.TokenRepository;
+import com.HealthCare.SystemApplication.Repository.TokenRepo;
 import com.HealthCare.SystemApplication.service.JwtService;
 
 import jakarta.servlet.FilterChain;
@@ -27,7 +27,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final UserDetailsService userDetailsService;
 
-    private final TokenRepository tokenRepository;
+    private final TokenRepo tokenRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)

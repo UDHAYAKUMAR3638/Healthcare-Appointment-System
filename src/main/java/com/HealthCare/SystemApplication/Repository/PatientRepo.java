@@ -7,4 +7,8 @@ import com.HealthCare.SystemApplication.model.Patient;
 public interface PatientRepo extends JpaRepository<Patient, Long> {
 
     Patient findFirstByPatientEmail(String userEmail);
+
+    Patient findByPatientEmail(String email);
+
+    // void deleteByEmail(String email);
 }

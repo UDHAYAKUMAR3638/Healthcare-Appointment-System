@@ -46,6 +46,7 @@ The project follows a structured and organized architecture:
 - **Update Doctor:** `PUT /doctor/update/{DoctorId}`
 - **Delete Doctor:** `DELETE /doctor/delete/{DoctorId}`
 - **Get Doctor Appointments:** `GET /doctor/appointmentDetails/{doctorId}`
+- **Get All Doctor:** `GET /doctor/getAll`
 
 The API endpoints are documented, adhering to REST principles, and provide the core features of the Doctor's Appointment Application.
 

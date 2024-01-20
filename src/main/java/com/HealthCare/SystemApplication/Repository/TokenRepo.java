@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.HealthCare.SystemApplication.model.Token;
 
 @Repository
-public interface TokenRepository extends JpaRepository<Token, Integer> {
+public interface TokenRepo extends JpaRepository<Token, Integer> {
 
   @Query(value = """
       select t from Token t inner join User u\s
@@ -19,6 +19,5 @@ public interface TokenRepository extends JpaRepository<Token, Integer> {
   Token findActiveTokensByUserId(Integer id);
 
   Optional<Token> findByToken(String token);
-
   // void saveAll(List<ch.qos.logback.core.subst.Token> validUserTokens);
 }

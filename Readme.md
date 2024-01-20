@@ -12,7 +12,7 @@ The Health Care Appointment System is a Spring Boot-based system designed to fac
 
 The project follows a structured and organized architecture:
 
-- **Entities:** This includes entities such as `Doctor`, `Patient`, `Appointment`, `Receptionist`, `User`and `Token` to model the data.
+- **Entities:** This includes entities such as `Doctor`, `Patient`, `Appointment`, `Receptionist`, `User`, `Role` and `Token` to model the data.
 - **Repository:** This includes repository such as `AppointmentRepo`, `PatientRepo`, `DoctorRepo`, `ReceptionistRepo`, `UserRepo` and `TokenRepo` to access the entity data.
 - **Services:** logic is implemented in service classes such as `AppointmentService`, `PatientService`, `DoctorService`, `ReceptionistService` and `UserService`.
 - **Controller Classes:** These classes define and document RESTful API endpoints includes `DoctorController`, `PatientController`, `ReceptionistController` and `UserController`.
@@ -40,7 +40,7 @@ The project follows a structured and organized architecture:
 - **View Doctor Appointment:** `GET /appointment/doctorAppointment/{doctorId}`
 - **View All Appointment:** `GET /appointment/getAll`
 
-### Doctor Profiles
+### Doctor Controller
 
 - **Get Doctor:** `GET /doctor/{DoctorId}`
 - **Update Doctor:** `PUT /doctor/update/{DoctorId}`

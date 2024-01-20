@@ -1,5 +1,7 @@
 package com.HealthCare.SystemApplication.service;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,10 +65,31 @@ public class AppointmentService {
         }
     }
 
-    public void bookAppointment(Appointment appointment) {
-        if (!appointmentRepo.existsById(appointment.getAppointmentId())) {
-            appointmentRepo.save(appointment);
+    public boolean bookAppointment(Appointment appointment) {
+       if(isTimeOutsideRange(appointment.getDoctor().getDoctorId(),appointment.getTime()))
+        {appointmentRepo.save(appointment);
+         return true;
         }
+        else
+        return false;
+
+    }
+
+    public boolean isTimeOutsideRange(Long doctorId, LocalDateTime givenTime) {
+        List<Appointment> appointment = appointmentRepo.findAllByDoctorDoctorId(doctorId);
+        if (appointment.isEmpty())
+            return true;
+        for (Appointment a : appointment) {
+            if (!isOutsideTimeRange(givenTime, a.getTime()))
+                return false;
+        }
+        return true;
+    }
+
+    public boolean isOutsideTimeRange(LocalDateTime givenTime, LocalDateTime appointmentTime) {
+        LocalDateTime startTime = appointmentTime.minus(15, ChronoUnit.MINUTES);
+        LocalDateTime endTime = appointmentTime.plus(15, ChronoUnit.MINUTES);
+        return givenTime.isBefore(startTime) || givenTime.isAfter(endTime);
     }
 
     public void cancelAppointment(Long Id) {

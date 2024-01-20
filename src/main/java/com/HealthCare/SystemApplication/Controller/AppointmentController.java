@@ -31,8 +31,10 @@ public class AppointmentController {
         String msg = null;
         HttpStatus status;
         try {
-            appointmentService.bookAppointment(appointment);
-            msg = " Appointment booked successfully";
+            if (appointmentService.bookAppointment(appointment))
+                msg = " Appointment booked successfully";
+            else
+                msg = "Another Appointment is already booked at this time";
             status = HttpStatus.OK;
         } catch (Exception e) {
             msg = "Book Another Appointment as this appointment is already booked";
@@ -87,13 +89,13 @@ public class AppointmentController {
     }
 
     @PreAuthorize("hasRole('PATIENT')")
-    @GetMapping("/patientAppointment/{patientId}")
+    @GetMapping("/patientAppointment/{Id}")
     public ResponseEntity<AppointmentOut> getPatientAppointment(@PathVariable Long Id) {
         return new ResponseEntity<AppointmentOut>(appointmentService.getPatientAppointment(Id), HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('DOCTOR')")
-    @GetMapping("/doctorAppointment/{doctorId}")
+    @GetMapping("/doctorAppointment/{Id}")
     public ResponseEntity<AppointmentOut> getDoctorAppointment(@PathVariable Long Id) {
         return new ResponseEntity<AppointmentOut>(appointmentService.getDoctorAppointment(Id), HttpStatus.OK);
     }

@@ -34,7 +34,7 @@ public class AppointmentController {
             if (appointmentService.bookAppointment(appointment))
                 msg = " Appointment booked successfully";
             else
-                msg = "Another Appointment is already booked at this time";
+                msg = "Another Appointment is already booked at this time try different time";
             status = HttpStatus.OK;
         } catch (Exception e) {
             msg = "Book Another Appointment as this appointment is already booked";

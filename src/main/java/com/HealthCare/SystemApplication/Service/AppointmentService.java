@@ -38,4 +38,11 @@ public class AppointmentService {
     public void cancelAppointment(Long Id) {
         appointmentRepo.deleteById(Id);
     }
+
+    public AppointmentOut getAppointment(Long Id) {
+        Appointment appointment = null;
+        appointment = appointmentRepo.findByPatientPatientId(Id);
+        AppointmentOut appointmentOut = new AppointmentOut(appointment);
+        return appointmentOut;
+    }
 }

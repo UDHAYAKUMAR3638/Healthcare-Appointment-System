@@ -19,7 +19,6 @@ import com.HealthCare.SystemApplication.Model.Appointment;
 import com.HealthCare.SystemApplication.Model.AppointmentOut;
 import com.HealthCare.SystemApplication.Model.Patient;
 import com.HealthCare.SystemApplication.Model.PatientOut;
-import com.HealthCare.SystemApplication.Repository.AppointmentRepo;
 import com.HealthCare.SystemApplication.Service.AppointmentService;
 import com.HealthCare.SystemApplication.Service.PatientService;
 
@@ -27,8 +26,7 @@ import com.HealthCare.SystemApplication.Service.PatientService;
 @RequestMapping("patient")
 @PreAuthorize("hasRole('PATIENT') or hasRole('RECEPIONIST')")
 public class PatientController {
-    @Autowired
-    AppointmentRepo appointmentRepo;
+
     @Autowired
     PatientService patientService;
     @Autowired
@@ -81,10 +79,7 @@ public class PatientController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST') or hasRole('PATIENT')")
     @GetMapping("/appointment/{Id}")
     public ResponseEntity<AppointmentOut> getAppointment(@PathVariable Long Id) {
-        Appointment appointment = null;
-        appointment = appointmentRepo.findByPatientPatientId(Id);
-        AppointmentOut appointmentOut = new AppointmentOut(appointment);
-        return new ResponseEntity<AppointmentOut>(appointmentOut, HttpStatus.OK);
+        return new ResponseEntity<AppointmentOut>(appointmentService.getAppointment(Id), HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR')")
@@ -93,6 +88,21 @@ public class PatientController {
         HttpStatus status;
         try {
             return new ResponseEntity<AppointmentOut>(appointmentService.updateAppointment(id, appointment),
+                    HttpStatus.OK);
+
+        } catch (Exception e) {
+            status = HttpStatus.BAD_REQUEST;
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(null, status);
+    }
+
+    @PreAuthorize("hasRole('PATIENT') or hasRole('ADMIN')")
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deletePatient(@PathVariable Long id) {
+        HttpStatus status;
+        try {
+            return new ResponseEntity<>(patientService.deletePatient(id),
                     HttpStatus.OK);
 
         } catch (Exception e) {

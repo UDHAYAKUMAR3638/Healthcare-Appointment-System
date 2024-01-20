@@ -1,7 +1,5 @@
 package com.HealthCare.SystemApplication.Auth;
 
-import java.util.List;
-
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -79,20 +77,21 @@ public class AuthenticationService {
                                 .build();
         }
 
-        private void revokeAllUserTokens(User user) {
-                List<Token> validUserTokens = tokenRepository.findActiveTokensByUserId(user.getId());
+        // private void revokeAllUserTokens(User user) {
+        // List<Token> validUserTokens =
+        // tokenRepository.findActiveTokensByUserId(user.getId());
 
-                if (validUserTokens.isEmpty()) {
-                        return;
-                }
+        // if (validUserTokens.isEmpty()) {
+        // return;
+        // }
 
-                validUserTokens.forEach(
-                                t -> {
-                                        t.setExpired(true);
-                                        t.setRevoked(true);
-                                });
-                tokenRepository.saveAll(validUserTokens);
-        }
+        // validUserTokens.forEach(
+        // t -> {
+        // t.setExpired(true);
+        // t.setRevoked(true);
+        // });
+        // tokenRepository.saveAll(validUserTokens);
+        // }
 
         private void saveUserToken(User user, String token) {
                 var usertoken = Token.builder()
@@ -111,7 +110,7 @@ public class AuthenticationService {
                 var user = userRepository.findByEmail(request.getEmail())
                                 .orElseThrow();
                 var jwtToken = jwtService.generateToken(user);
-                revokeAllUserTokens(user);
+                // revokeAllUserTokens(user);
                 saveUserToken(user, jwtToken);
                 return AuthenticationResponse.builder()
                                 .token(jwtToken)

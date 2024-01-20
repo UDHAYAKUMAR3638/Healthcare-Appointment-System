@@ -10,7 +10,10 @@ import com.HealthCare.SystemApplication.Model.Doctor;
 import com.HealthCare.SystemApplication.Model.DoctorOut;
 import com.HealthCare.SystemApplication.Repository.AppointmentRepo;
 import com.HealthCare.SystemApplication.Repository.DoctorRepo;
+import com.HealthCare.SystemApplication.Repository.TokenRepository;
 import com.HealthCare.SystemApplication.Repository.UserRepository;
+import com.HealthCare.SystemApplication.Users.User;
+import com.HealthCare.SystemApplication.token.Token;
 
 @Service
 public class DoctorService {
@@ -21,6 +24,8 @@ public class DoctorService {
     AppointmentRepo appointmentRepo;
     @Autowired
     UserRepository userRepo;
+    @Autowired
+    TokenRepository tokenRepo;
 
     public List<Doctor> getAllDoctors() {
         return doctorRepo.findAll();
@@ -55,9 +60,12 @@ public class DoctorService {
         else {
             List<Appointment> appointment = appointmentRepo.findAllByDoctorDoctorId(id);
             appointmentRepo.deleteAll(appointment);
-            doctorRepo.deleteById(id);
-            // userRepo.deleteByEmail(doctor.doctorEmail);
+            User user = userRepo.findByEmail(doctor.getDoctorEmail()).get();
+            Token token = tokenRepo.findActiveTokensByUserId(user.getId());
+            tokenRepo.delete(token);
+            userRepo.deleteById(user.getId());
             DoctorOut doctorOut = new DoctorOut(doctor);
+            doctorRepo.deleteById(id);
             return doctorOut;
         }
     }

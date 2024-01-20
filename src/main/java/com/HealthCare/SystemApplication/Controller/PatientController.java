@@ -61,7 +61,7 @@ public class PatientController {
     }
 
     @PreAuthorize("hasRole('PATIENT') or hasRole('RECEPTIONIST')")
-    @PostMapping("/bookApp")
+    @PostMapping("/bookAppointment")
     public ResponseEntity<String> bookAppointment(@RequestBody Appointment appointment) {
         String msg = null;
         HttpStatus status;
@@ -77,13 +77,13 @@ public class PatientController {
     }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST') or hasRole('PATIENT')")
-    @GetMapping("/appointment/{Id}")
+    @GetMapping("/getAppointment/{Id}")
     public ResponseEntity<AppointmentOut> getAppointment(@PathVariable Long Id) {
         return new ResponseEntity<AppointmentOut>(appointmentService.getAppointment(Id), HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR')")
-    @PutMapping("/updateApp/{id}")
+    @PutMapping("/updateAppointment/{id}")
     public ResponseEntity<?> updateAppointment(@PathVariable Long id, @RequestBody Appointment appointment) {
         HttpStatus status;
         try {
@@ -113,7 +113,7 @@ public class PatientController {
     }
 
     @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR')")
-    @DeleteMapping("/cancelApp/{Id}")
+    @DeleteMapping("/cancelAppointment/{Id}")
     ResponseEntity<String> cancelAppointment(@PathVariable Long Id) {
         appointmentService.cancelAppointment(Id);
         return new ResponseEntity<String>("Appointment Cancelled Sucessfully.", HttpStatus.OK);

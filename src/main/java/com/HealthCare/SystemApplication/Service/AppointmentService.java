@@ -18,19 +18,20 @@ public class AppointmentService {
         if (appointment1 == null)
             return null;
         else {
-            if (appointment.time != null)
-                appointment1.time = appointment.time;
-            if (appointment.doctor != null)
-                appointment1.doctor = appointment.doctor;
-            if (appointment.patient != null)
-                appointment1.patient = appointment.patient;
+            if (appointment.getTime() != null)
+                appointment1.setTime(appointment.getTime());
+            if (appointment.getDoctor() != null)
+                appointment1.setDoctor(appointment.getDoctor());
+            if (appointment.getPatient() != null)
+                appointment1.setPatient(appointment.getPatient());
+            ;
             AppointmentOut AppointmentOut = new AppointmentOut(appointmentRepo.save(appointment1));
             return AppointmentOut;
         }
     }
 
     public void bookAppointment(Appointment appointment) {
-        if (!appointmentRepo.existsById(appointment.appointmentId)) {
+        if (!appointmentRepo.existsById(appointment.getAppointmentId())) {
             appointmentRepo.save(appointment);
         }
     }

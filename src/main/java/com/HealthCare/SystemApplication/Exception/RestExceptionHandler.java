@@ -10,7 +10,7 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(value = EmailAlreadyExistsException.class)
     public ResponseEntity<?> handleEmailAlreadyExistsException() {
-        return new ResponseEntity<>("Email already exists", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("This EmailId is already present", HttpStatus.BAD_REQUEST);
 
     }
 

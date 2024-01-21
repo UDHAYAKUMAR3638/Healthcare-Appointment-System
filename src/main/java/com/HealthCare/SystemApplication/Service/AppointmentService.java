@@ -31,4 +31,6 @@ public interface AppointmentService {
 
     public List<Appointment> getAllAppointments();
 
+    public String updateAppointmentStatus(Long id, String status) throws IOException;
+
 }

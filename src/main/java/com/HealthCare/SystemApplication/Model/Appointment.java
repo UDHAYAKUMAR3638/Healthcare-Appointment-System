@@ -29,5 +29,5 @@ public class Appointment {
     @JoinColumn(name = "patient_id")
     private Patient patient;
 
-    private Boolean appointmentStatus;
+    private String appointmentStatus = "not visited";
 }

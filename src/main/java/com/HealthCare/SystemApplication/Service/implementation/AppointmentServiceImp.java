@@ -104,7 +104,6 @@ public class AppointmentServiceImp implements AppointmentService {
     }
 
     @Override
-
     public boolean isOutsideTimeRange(LocalDateTime givenTime, LocalDateTime appointmentTime) {
 
         LocalDateTime startTime = appointmentTime.minus(15, ChronoUnit.MINUTES);
@@ -113,13 +112,11 @@ public class AppointmentServiceImp implements AppointmentService {
     }
 
     @Override
-
     public void cancelAppointment(Long Id) {
         appointmentRepo.deleteById(Id);
     }
 
     @Override
-
     public AppointmentOut getDoctorAppointment(Long Id) {
         Appointment appointment = null;
         appointment = appointmentRepo.findByDoctorDoctorId(Id);
@@ -131,7 +128,6 @@ public class AppointmentServiceImp implements AppointmentService {
     }
 
     @Override
-
     public AppointmentOut getPatientAppointment(Long Id) {
         Appointment appointment = null;
         appointment = appointmentRepo.findByPatientPatientId(Id);
@@ -143,8 +139,22 @@ public class AppointmentServiceImp implements AppointmentService {
     }
 
     @Override
-
     public List<Appointment> getAllAppointments() {
         return appointmentRepo.findAll();
     }
+
+    @Override
+    public String updateAppointmentStatus(Long id, String status) throws IOException {
+        Appointment appointment1 = null;
+        appointment1 = appointmentRepo.findById(id).get();
+        if (appointment1 == null) {
+            System.out.println("if");
+            throw new IOException("Appointment Not found");
+        } else {
+            appointment1.setAppointmentStatus(status);
+            appointmentRepo.save(appointment1);
+            return "Status updated";
+        }
+    }
+
 }

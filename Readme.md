@@ -1,7 +1,5 @@
 # <h1 align="center"> Health Care Appointment System </h1>
 
----
-
 <p align="left">
 
 ## Overview

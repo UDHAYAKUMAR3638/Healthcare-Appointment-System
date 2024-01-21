@@ -11,8 +11,6 @@
 	<groupId>com.HealthCare</groupId>
 	<artifactId>SystemApplication</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>inventory-management</name>
-	<description>inventory-management-system</description>
 	<properties>
 		<java.version>21</java.version>
 	</properties>

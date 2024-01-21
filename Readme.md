@@ -4,7 +4,7 @@
 
 ## Overview
 
-The Health Care Appointment System is a Spring Boot-based system designed to facilitate doctor-patient appointments. It offers a set of RESTful API endpoints for booking and managing appointments, user authentication, doctor and patient details .
+The Health Care Appointment System is a Spring Boot-based system designed to facilitate doctor-patient appointments. It offers a set of RESTful API endpoints for booking and managing appointments, user authentication, doctor and patient details.
 
 ## Project Structure
 
@@ -14,8 +14,6 @@ The project follows a structured and organized architecture:
 - **Repository:** This includes repository such as `AppointmentRepo`, `PatientRepo`, `DoctorRepo`, `ReceptionistRepo`, `UserRepo` and `TokenRepo` to access the entity data.
 - **Services:** logic is implemented in service classes such as `AppointmentService`, `PatientService`, `DoctorService`, `ReceptionistService` and `UserService`.
 - **Controller Classes:** These classes define and document RESTful API endpoints includes `DoctorController`, `PatientController`, `ReceptionistController` and `UserController`.
-
-## Controllers and its API Endpoints
 
 ## Auth Controller
 
@@ -82,7 +80,9 @@ The project follows a structured and organized architecture:
 ## Doctor Table Description
 
 - `doctorId`: Unique identifier for each doctor.
-- `doctorName`: Name of the doctor.
+- `doctorFirstName`: First name of the doctor.
+- `doctorLastName`: Last name of the doctor.
+- `doctorEmail`: Unique email address for the doctor(unique).
 - `specialization`: The doctor's specialization(e.g., "Cardiology," "Dermatology")..
 - `appointments`: A list of `Appointment` entities representing the appointments associated with the doctor.
 
@@ -111,31 +111,31 @@ The project follows a structured and organized architecture:
 - `password`: Encrypted user password.
 - `role`: It has roles of users like [PATIENT,ADMIN, DOCTOR, RECEPTIONIST].
 
-  **Repositories**:
+## Repositories
 
-  - **AppointmentRepo**:
+- **AppointmentRepo**:
 
-    - Extends `JpaRepository` for the `Appointment` entity. It allows for data access operations related to appointments.
+  - Extends `JpaRepository` for the `Appointment` entity. It allows for data access operations related to appointments.
 
-  - **TokenRepo**:
+- **TokenRepo**:
 
-    - Extends `JpaRepository` for the `Token` entity. It facilitates data access for authentication tokens.
+  - Extends `JpaRepository` for the `Token` entity. It facilitates data access for authentication tokens.
 
-  - **DoctorRepo**:
+- **DoctorRepo**:
 
-    - Extends `JpaRepository` for the `Doctor` entity. It enables data access related to doctors.
+  - Extends `JpaRepository` for the `Doctor` entity. It enables data access related to doctors.
 
-  - **PatientRepo**:
+- **PatientRepo**:
 
-    - Extends `JpaRepository` for the `Patient` entity, allowing data access operations related to patients.
+  - Extends `JpaRepository` for the `Patient` entity, allowing data access operations related to patients.
 
-  - **ReceptionistRepo**:
+- **ReceptionistRepo**:
 
-    - Extends `JpaRepository` for the `Receptionist` entity, allowing data access operations related to receptionist.
+  - Extends `JpaRepository` for the `Receptionist` entity, allowing data access operations related to receptionist.
 
-  - **UserRepo**:
+- **UserRepo**:
 
-    - Extends `JpaRepository` for the `User` entity, allowing data access operations related to users.
+  - Extends `JpaRepository` for the `User` entity, allowing data access operations related to users.
 
 ## ArrayLists
 

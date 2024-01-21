@@ -11,12 +11,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, scope = Receptionist.class, property = "ReceptionistId")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, scope = Receptionist.class, property = "receptionist_id")
 public class Receptionist {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ReceptionistId;
+    private Long receptionist_id;
     private String ReceptionistFristName;
     private String ReceptionistLastName;
     private String ReceptionistEmail;

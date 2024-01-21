@@ -15,17 +15,17 @@ The project follows a structured and organized architecture:
 - **Services:** logic is implemented in service classes such as `AppointmentService`, `PatientService`, `DoctorService`, `ReceptionistService` and `UserService`.
 - **Controller Classes:** These classes define and document RESTful API endpoints includes `DoctorController`, `PatientController`, `ReceptionistController` and `UserController`.
 
-## User Creation
+## Auth Controller
 
 - **Create User:** `POST /api/auth/register`
 - **Authenticate User:** `POST /api/auth/authenticate`
 
 ## Patient Controller
 
-- **Get Patient:** `GET /patient/{Id}`
+- **View Patient:** `GET /patient/{Id}`
 - **Update Patient:** `PUT /patient/update/{Id}`
-- **Get All Patient:** `GET /patient/getAll`
-- **Delete Patient:** `DELETE /patient/delete/{Id}`
+- **View All Patient:** `GET /patient/getAll`
+- **Remove Patient:** `DELETE /patient/delete/{Id}`
 
 ### Appointment Controller
 
@@ -40,11 +40,21 @@ The project follows a structured and organized architecture:
 
 ### Doctor Controller
 
-- **Get Doctor:** `GET /doctor/{DoctorId}`
+- **View Doctor:** `GET /doctor/{DoctorId}`
 - **Update Doctor:** `PUT /doctor/update/{DoctorId}`
-- **Delete Doctor:** `DELETE /doctor/delete/{DoctorId}`
-- **Get Doctor Appointments:** `GET /doctor/appointmentDetails/{doctorId}`
+- **Remove Doctor:** `DELETE /doctor/delete/{DoctorId}`
+- **View Doctor Appointments:** `GET /doctor/appointmentDetails/{doctorId}`
 - **Get All Doctor:** `GET /doctor/getAll`
+
+### Receptionist Controller
+
+- **Update Appointment Status:** `PUT /receptionist/updateAppointmentStatus/{appointmentId}/{status}`
+
+### User Controller
+
+- **View User:** `GET /user/{userId}`
+- **View All User:** `GET /user/getAll`
+- **Remove User:** `DELETE /user/delete/{UserId}`
 
 ### Doctor Table Description
 
@@ -62,13 +72,20 @@ The project follows a structured and organized architecture:
 - `patientContact`: Contact information for the patient.
 - `appointment`: The patient's appointment.
 
+### Receptionist Table Description
+
+- `ReceptionistId`: Unique identifier for each receptionist.
+- `ReceptionistFristName`: First name of the receptionist.
+- `ReceptionistLastName`: Last name of the receptionist.
+- `ReceptionistEmail`: Unique email address for the receptionist.
+
 ### Appointment Table Description
 
 - `appointmentId`: Unique identifier for each appointment.
 - `time`: Appointment date and time.
-- `doctor`: It has doctor details.
-- `patient`: It has patient details.
-- `appointmentStatus`: The patient's appointment completed or not.
+- `doctor`: It has doctor details for the appointment.
+- `patient`: It has patient details for the appointment.
+- `appointmentStatus`: Appointment is completed or not.
 
 ### Token Table Description
 
@@ -77,7 +94,7 @@ The project follows a structured and organized architecture:
 - `tokenType`: stores token type.
 - `expired`: token whether token is expired or not in bit type.
 - `revoked`: token revoked status is stored in bit type.
-- `user`: Many-to-one relationship with the patient.
+- `user`: Many-to-one relationship with the patient contains user details.
 
 ### User Table Description
 

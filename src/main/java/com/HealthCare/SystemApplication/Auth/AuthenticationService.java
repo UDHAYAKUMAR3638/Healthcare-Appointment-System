@@ -5,11 +5,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.HealthCare.SystemApplication.Repository.DoctorRepo;
-import com.HealthCare.SystemApplication.Repository.PatientRepo;
-import com.HealthCare.SystemApplication.Repository.ReceptionistRepo;
-import com.HealthCare.SystemApplication.Repository.TokenRepo;
-import com.HealthCare.SystemApplication.Repository.UserRepo;
 import com.HealthCare.SystemApplication.exception.EmailAlreadyExistsException;
 import com.HealthCare.SystemApplication.model.Doctor;
 import com.HealthCare.SystemApplication.model.Patient;
@@ -18,6 +13,11 @@ import com.HealthCare.SystemApplication.model.Role;
 import com.HealthCare.SystemApplication.model.Token;
 import com.HealthCare.SystemApplication.model.TokenType;
 import com.HealthCare.SystemApplication.model.User;
+import com.HealthCare.SystemApplication.repository.DoctorRepo;
+import com.HealthCare.SystemApplication.repository.PatientRepo;
+import com.HealthCare.SystemApplication.repository.ReceptionistRepo;
+import com.HealthCare.SystemApplication.repository.TokenRepo;
+import com.HealthCare.SystemApplication.repository.UserRepo;
 import com.HealthCare.SystemApplication.service.JwtService;
 
 import lombok.RequiredArgsConstructor;

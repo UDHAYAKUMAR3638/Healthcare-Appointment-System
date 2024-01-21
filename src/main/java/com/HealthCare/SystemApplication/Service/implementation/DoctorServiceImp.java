@@ -5,15 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.HealthCare.SystemApplication.Repository.AppointmentRepo;
-import com.HealthCare.SystemApplication.Repository.DoctorRepo;
-import com.HealthCare.SystemApplication.Repository.TokenRepo;
-import com.HealthCare.SystemApplication.Repository.UserRepo;
 import com.HealthCare.SystemApplication.dto.DoctorOut;
 import com.HealthCare.SystemApplication.model.Appointment;
 import com.HealthCare.SystemApplication.model.Doctor;
 import com.HealthCare.SystemApplication.model.Token;
 import com.HealthCare.SystemApplication.model.User;
+import com.HealthCare.SystemApplication.repository.AppointmentRepo;
+import com.HealthCare.SystemApplication.repository.DoctorRepo;
+import com.HealthCare.SystemApplication.repository.TokenRepo;
+import com.HealthCare.SystemApplication.repository.UserRepo;
 import com.HealthCare.SystemApplication.service.DoctorService;
 
 @Service
@@ -28,11 +28,13 @@ public class DoctorServiceImp implements DoctorService {
     @Autowired
     TokenRepo tokenRepo;
 
+    /* return all doctor details from doctor table */
     @Override
     public List<Doctor> getAllDoctors() {
         return doctorRepo.findAll();
     }
 
+    /* update doctor details on doctor table */
     @Override
     public DoctorOut updateDoctor(Long id, Doctor doctor) {
         try {
@@ -56,6 +58,7 @@ public class DoctorServiceImp implements DoctorService {
         }
     }
 
+    /* delete doctor details from doctor table */
     @Override
     public DoctorOut deleteDoctor(Long id) {
         Doctor doctor = doctorRepo.findById(id).get();
@@ -74,6 +77,7 @@ public class DoctorServiceImp implements DoctorService {
         }
     }
 
+    /* return doctor appointments from doctor table */
     @Override
     public List<Appointment> getDoctorAppointments(Long docId) {
         Doctor myDoc = doctorRepo.findByDoctorId(docId);
@@ -83,6 +87,7 @@ public class DoctorServiceImp implements DoctorService {
         return myDoc.getAppointments();
     }
 
+    /* return doctor details from doctor table */
     @Override
     public Doctor getDoctor(Long id) {
         return doctorRepo.findById(id).get();

@@ -4,7 +4,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.stereotype.Service;
 
-import com.HealthCare.SystemApplication.Repository.TokenRepo;
+import com.HealthCare.SystemApplication.repository.TokenRepo;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

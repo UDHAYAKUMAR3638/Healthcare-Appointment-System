@@ -1,4 +1,4 @@
-package com.HealthCare.SystemApplication.Repository;
+package com.HealthCare.SystemApplication.repository;
 
 import java.util.Optional;
 

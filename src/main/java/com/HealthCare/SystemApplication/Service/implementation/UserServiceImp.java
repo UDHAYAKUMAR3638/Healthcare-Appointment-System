@@ -6,15 +6,15 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.HealthCare.SystemApplication.Repository.AppointmentRepo;
-import com.HealthCare.SystemApplication.Repository.DoctorRepo;
-import com.HealthCare.SystemApplication.Repository.PatientRepo;
-import com.HealthCare.SystemApplication.Repository.TokenRepo;
-import com.HealthCare.SystemApplication.Repository.UserRepo;
 import com.HealthCare.SystemApplication.model.Doctor;
 import com.HealthCare.SystemApplication.model.Patient;
 import com.HealthCare.SystemApplication.model.Token;
 import com.HealthCare.SystemApplication.model.User;
+import com.HealthCare.SystemApplication.repository.AppointmentRepo;
+import com.HealthCare.SystemApplication.repository.DoctorRepo;
+import com.HealthCare.SystemApplication.repository.PatientRepo;
+import com.HealthCare.SystemApplication.repository.TokenRepo;
+import com.HealthCare.SystemApplication.repository.UserRepo;
 import com.HealthCare.SystemApplication.service.UserService;
 
 @Service
@@ -30,16 +30,19 @@ public class UserServiceImp implements UserService {
     @Autowired
     TokenRepo tokenRepo;
 
+    /* return user details */
     @Override
     public Optional<User> getUser(Integer Id) {
         return userRepo.findById(Id);
     }
 
+    /* return all user details from user */
     @Override
     public List<User> getAll() {
         return userRepo.findAll();
     }
 
+    /* delete user details from user table */
     @Override
     public String deleteUser(Integer Id) {
         User user = userRepo.findById(Id).get();

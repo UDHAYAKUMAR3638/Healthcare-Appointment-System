@@ -10,7 +10,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.HealthCare.SystemApplication.Repository.TokenRepo;
+import com.HealthCare.SystemApplication.repository.TokenRepo;
 import com.HealthCare.SystemApplication.service.JwtService;
 
 import jakarta.servlet.FilterChain;

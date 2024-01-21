@@ -3,16 +3,16 @@ package com.HealthCare.SystemApplication.service.implementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.HealthCare.SystemApplication.Repository.AppointmentRepo;
-import com.HealthCare.SystemApplication.Repository.PatientRepo;
-import com.HealthCare.SystemApplication.Repository.TokenRepo;
-import com.HealthCare.SystemApplication.Repository.UserRepo;
 import com.HealthCare.SystemApplication.auth.AuthenticationService;
 import com.HealthCare.SystemApplication.dto.PatientOut;
 import com.HealthCare.SystemApplication.model.Appointment;
 import com.HealthCare.SystemApplication.model.Patient;
 import com.HealthCare.SystemApplication.model.Token;
 import com.HealthCare.SystemApplication.model.User;
+import com.HealthCare.SystemApplication.repository.AppointmentRepo;
+import com.HealthCare.SystemApplication.repository.PatientRepo;
+import com.HealthCare.SystemApplication.repository.TokenRepo;
+import com.HealthCare.SystemApplication.repository.UserRepo;
 import com.HealthCare.SystemApplication.service.PatientService;
 
 import java.util.List;
@@ -37,16 +37,19 @@ public class PatientServiceImp implements PatientService {
     @Autowired
     TokenRepo tokenRepo;
 
+    /* return patient detail from patient table */
     @Override
     public Patient getPatient(Long Id) {
         return patientRepo.findById(Id).orElse(null);
     }
 
+    /* return patient appointment detail from appointment table */
     @Override
     public List<Patient> getAllPatients() {
         return patientRepo.findAll();
     }
 
+    /* update appointment detail by patient detail */
     @Override
     public PatientOut updatePatient(Long id, Patient patient) {
         try {
@@ -70,6 +73,7 @@ public class PatientServiceImp implements PatientService {
         }
     }
 
+    /* delete patient detail */
     @Override
     public PatientOut deletePatient(Long id) {
         Patient patient = patientRepo.findById(id).get();

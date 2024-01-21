@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.HealthCare.SystemApplication.dto.AppointmentOut;
+import com.HealthCare.SystemApplication.model.Appointment;
 import com.HealthCare.SystemApplication.model.Receptionist;
 import com.HealthCare.SystemApplication.service.AppointmentService;
 import com.HealthCare.SystemApplication.service.ReceptionistService;
@@ -53,6 +55,25 @@ public class ReceptionistController {
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
+    }
+
+    @PreAuthorize("hasRole('RECEPTIONIST')")
+    @GetMapping("/getAllAppointments")
+    public ResponseEntity<List<AppointmentOut>> getAllAppointments() {
+        List<Appointment> myAppointments = null;
+        HttpStatus status;
+        try {
+            myAppointments = appointmentService.getAllAppointments();
+            if (myAppointments.isEmpty()) {
+                status = HttpStatus.NO_CONTENT;
+            } else {
+                status = HttpStatus.OK;
+            }
+        } catch (Exception e) {
+            status = HttpStatus.BAD_REQUEST;
+        }
+        List<AppointmentOut> appointmentOut = AppointmentOut.fromAppointments(myAppointments);
+        return new ResponseEntity<List<AppointmentOut>>(appointmentOut, status);
     }
 
 }

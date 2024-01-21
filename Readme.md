@@ -49,6 +49,9 @@ The project follows a structured and organized architecture:
 ### Receptionist Controller
 
 - **Update Appointment Status:** `PUT /receptionist/updateAppointmentStatus/{appointmentId}/{status}`
+- **View Receptionist:** `GET /receptionist/get/{receptionistId}`
+- **View All Receptionist:** `GET /receptionist/getAll`
+- **View All Appointments:** `GET /receptionist/getAllAppointments`
 
 ### User Controller
 

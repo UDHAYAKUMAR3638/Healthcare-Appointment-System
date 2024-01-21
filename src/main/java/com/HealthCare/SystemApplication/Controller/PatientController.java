@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.HealthCare.SystemApplication.dto.AppointmentOut;
 import com.HealthCare.SystemApplication.dto.PatientOut;
 import com.HealthCare.SystemApplication.model.Patient;
 import com.HealthCare.SystemApplication.service.implementation.AppointmentServiceImp;
@@ -55,6 +56,12 @@ public class PatientController {
         allPatients = patientService.getAllPatients();
         List<PatientOut> allPatientsOut = PatientOut.fromPatients(allPatients);
         return new ResponseEntity<List<PatientOut>>(allPatientsOut, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('PATIENT') or hasRole('RECEPTIONIST')")
+    @GetMapping("/appointment/{Id}")
+    public ResponseEntity<AppointmentOut> getPatientAppointment(@PathVariable Long Id) {
+        return new ResponseEntity<AppointmentOut>(appointmentService.getPatientAppointment(Id), HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('PATIENT') or hasRole('RECEPTIONIST')")

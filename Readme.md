@@ -15,19 +15,14 @@ The project follows a structured and organized architecture:
 - **Services:** logic is implemented in service classes such as `AppointmentService`, `PatientService`, `DoctorService`, `ReceptionistService` and `UserService`.
 - **Controller Classes:** These classes define and document RESTful API endpoints includes `DoctorController`, `PatientController`, `ReceptionistController` and `UserController`.
 
+## Controllers and its API Endpoints
+
 ## Auth Controller
 
 - **Create User:** `POST /api/auth/register`
 - **Authenticate User:** `POST /api/auth/authenticate`
 
-## Patient Controller
-
-- **View Patient:** `GET /patient/{Id}`
-- **Update Patient:** `PUT /patient/update/{Id}`
-- **View All Patient:** `GET /patient/getAll`
-- **Remove Patient:** `DELETE /patient/delete/{Id}`
-
-### Appointment Controller
+## Appointment Controller
 
 - **Book Appointment:** `POST /api/appointment/book`
 - **Cancel Appointment:** `DELETE /api/appointment/cancel/{appointmentId}`
@@ -36,70 +31,78 @@ The project follows a structured and organized architecture:
 - **Update Appointment By PatientId:** `PUT /api/appointment/updateByPatientId/{patientId}`
 - **View Patient Appointment:** `GET /appointment/patientAppointment/{patientId}`
 - **View Doctor Appointment:** `GET /appointment/doctorAppointment/{doctorId}`
-- **View All Appointment:** `GET /appointment/getAll`
+- **View All Appointments:** `GET /appointment/getAll`
 
-### Doctor Controller
+## Doctor Controller
 
 - **View Doctor:** `GET /doctor/{DoctorId}`
+- **View Doctor Appointments:** `GET /doctor/appointmentDetails/{doctorId}`
+- **View All Doctors:** `GET /doctor/getAll`
 - **Update Doctor:** `PUT /doctor/update/{DoctorId}`
 - **Remove Doctor:** `DELETE /doctor/delete/{DoctorId}`
-- **View Doctor Appointments:** `GET /doctor/appointmentDetails/{doctorId}`
-- **Get All Doctor:** `GET /doctor/getAll`
 
-### Receptionist Controller
+## Patient Controller
 
-- **Update Appointment Status:** `PUT /receptionist/updateAppointmentStatus/{appointmentId}/{status}`
+- **View Patient:** `GET /patient/{Id}`
+- **View All Patients:** `GET /patient/getAll`
+- **View Patient Appointment:** `GET /patient/appointment/{patientId}`
+- **Update Patient:** `PUT /patient/update/{Id}`
+- **Remove Patient:** `DELETE /patient/delete/{Id}`
+
+## Receptionist Controller
+
 - **View Receptionist:** `GET /receptionist/get/{receptionistId}`
-- **View All Receptionist:** `GET /receptionist/getAll`
+- **View All Receptionists:** `GET /receptionist/getAll`
 - **View All Appointments:** `GET /receptionist/getAllAppointments`
+- **Update Appointment Status:** `PUT /receptionist/updateAppointmentStatus/{appointmentId}/{status}`
 
-### User Controller
+## User Controller
 
 - **View User:** `GET /user/{userId}`
-- **View All User:** `GET /user/getAll`
+- **View All Users:** `GET /user/getAll`
 - **Remove User:** `DELETE /user/delete/{UserId}`
 
-### Doctor Table Description
-
-- `doctorId`: Unique identifier for each doctor.
-- `doctorName`: Name of the doctor.
-- `specialization`: The doctor's specialization.
-- `appointments`: A list of appointments associated with the doctor.
-
-### Patient Table Description
-
-- `patientId`: Unique identifier for each patient.
-- `patientFirstName`: First name of the patient.
-- `patientLastName`: Last name of the patient.
-- `patientEmail`: Unique email address for the patient.
-- `patientContact`: Contact information for the patient.
-- `appointment`: The patient's appointment.
-
-### Receptionist Table Description
-
-- `ReceptionistId`: Unique identifier for each receptionist.
-- `ReceptionistFristName`: First name of the receptionist.
-- `ReceptionistLastName`: Last name of the receptionist.
-- `ReceptionistEmail`: Unique email address for the receptionist.
-
-### Appointment Table Description
+## Appointment Table Description
 
 - `appointmentId`: Unique identifier for each appointment.
 - `time`: Appointment date and time.
-- `doctor`: It has doctor details for the appointment.
+- `doctor`: A reference to the associated doctor for the appointment.
 - `patient`: It has patient details for the appointment.
-- `appointmentStatus`: Appointment is completed or not.
+- `appointmentStatus`: A reference to the associated patient for the appointment.
 
-### Token Table Description
+## Token Table Description
 
 - `id`: Unique identifier for each token.
 - `token`: A unique token for user authentication.
 - `tokenType`: stores token type.
 - `expired`: token whether token is expired or not in bit type.
 - `revoked`: token revoked status is stored in bit type.
-- `user`: Many-to-one relationship with the patient contains user details.
+- `user`: Many-to-one relationship and a reference to the associated patient for whom the token is issued.
 
-### User Table Description
+## Doctor Table Description
+
+- `doctorId`: Unique identifier for each doctor.
+- `doctorName`: Name of the doctor.
+- `specialization`: The doctor's specialization(e.g., "Cardiology," "Dermatology")..
+- `appointments`: A list of `Appointment` entities representing the appointments associated with the doctor.
+
+## Patient Table Description
+
+- `patientId`: Unique identifier for each patient.
+- `patientFirstName`: First name of the patient.
+- `patientLastName`: Last name of the patient.
+- `patientEmail`: Unique email address for the patient(unique).
+- `patientContact`: Contact information for the patient.
+- `appointment`: A reference to the `Appointment` entity representing the patient's appointment.
+
+## Receptionist Table Description
+
+- `ReceptionistId`: Unique identifier for each receptionist.
+- `ReceptionistFristName`: First name of the receptionist.
+- `ReceptionistLastName`: Last name of the receptionist.
+- `ReceptionistEmail`: Unique email address for the receptionist.
+
+## User Table Description
 
 - `id`: Unique identifier for each user.
 - `firstname`: User first name.
@@ -108,59 +111,43 @@ The project follows a structured and organized architecture:
 - `password`: Encrypted user password.
 - `role`: It has roles of users like [PATIENT,ADMIN, DOCTOR, RECEPTIONIST].
 
-### Detailed Data Structures
+  **Repositories**:
 
-1. **Entities**:
+  - **AppointmentRepo**:
 
-   - **Doctor Entity**:
+    - Extends `JpaRepository` for the `Appointment` entity. It allows for data access operations related to appointments.
 
-     - `doctorId`: Unique identifier for each doctor.
-     - `doctorName`: Name of the doctor.
-     - `specialization`: Specialization of the doctor (e.g., "Cardiology," "Dermatology").
-     - `appointments`: A list of `Appointment` entities representing the appointments associated with the doctor.
+  - **TokenRepo**:
 
-   - **Patient Entity**:
+    - Extends `JpaRepository` for the `Token` entity. It facilitates data access for authentication tokens.
 
-     - `patientId`: Unique identifier for each patient.
-     - `patientFirstName`: First name of the patient.
-     - `patientLastName`: Last name of the patient.
-     - `patientEmail`: Email address of the patient (unique).
-     - `patientPassword`: Password of the patient (hashed and securely stored).
-     - `patientContact`: Contact information of the patient.
-     - `appointment`: A reference to the `Appointment` entity representing the patient's appointment.
+  - **DoctorRepo**:
 
-   - **Appointment Entity**:
+    - Extends `JpaRepository` for the `Doctor` entity. It enables data access related to doctors.
 
-     - `id`: An embedded primary key that includes `appointmentId` (unique identifier) and `time` (appointment time).
-     - `doctor`: A reference to the associated doctor for the appointment.
-     - `patient`: A reference to the associated patient for the appointment.
+  - **PatientRepo**:
 
-   - **AuthenticationToken Entity**:
-     - `tokenId`: Unique identifier for each authentication token.
-     - `token`: A unique token generated for user authentication.
-     - `tokenCreationDate`: Date when the token was created.
-     - `patient`: A reference to the associated patient for whom the token is issued.
+    - Extends `JpaRepository` for the `Patient` entity, allowing data access operations related to patients.
 
-2. **Repositories**:
+  - **ReceptionistRepo**:
 
-   - **IAppointmentRepo**:
+    - Extends `JpaRepository` for the `Receptionist` entity, allowing data access operations related to receptionist.
 
-     - Extends `JpaRepository` for the `Appointment` entity. It allows for data access operations related to appointments.
+  - **UserRepo**:
 
-   - **IDoctorRepo**:
+    - Extends `JpaRepository` for the `User` entity, allowing data access operations related to users.
 
-     - Extends `JpaRepository` for the `Doctor` entity. It enables data access related to doctors.
+## ArrayLists
 
-   - **IPatientRepo**:
+ArrayLists are used in this application to efficiently manage lists of entities.
 
-     - Extends `JpaRepository` for the `Patient` entity, allowing data access operations related to patients.
+- **Appointment Entity**:
 
-   - **ITokenRepo**:
-     - Extends `JpaRepository` for the `AuthenticationToken` entity. It facilitates data access for authentication tokens.
+  - The `Appointment` entity itself doesn't contain an ArrayList, but it's utilized to establish relationships between doctors and patients. The list of appointments for a doctor can be managed using a collection of `Appointment` entities in the `Doctor` entity.
 
-### ArrayLists
+- **Token Entity**:
 
-ArrayLists are used in your application to efficiently manage lists of entities. Here's how ArrayLists are used in the context of your entities:
+  - There isn't an ArrayList in the `AuthenticationToken` entity, but it's associated with a user using a reference. The token and associated data are stored as individual records in the database.
 
 - **Doctor Entity**:
 
@@ -169,13 +156,6 @@ ArrayLists are used in your application to efficiently manage lists of entities.
 - **Patient Entity**:
 
   - There isn't a direct ArrayList in the `Patient` entity, but the patient's appointments are managed using a reference to the `Appointment` entity.
-
-- **Appointment Entity**:
-
-  - The `Appointment` entity itself doesn't contain an ArrayList, but it's utilized to establish relationships between doctors and patients. The list of appointments for a doctor can be managed using a collection of `Appointment` entities in the `Doctor` entity.
-
-- **AuthenticationToken Entity**:
-  - There isn't an ArrayList in the `AuthenticationToken` entity, but it's associated with a patient using a reference. The token and associated data are stored as individual records in the database.
 
 configuration for MySQL:
 

@@ -17,48 +17,48 @@ The project follows a structured and organized architecture:
 
 ## Auth Controller
 
-- **Create User:** `POST /api/auth/register`
-- **Authenticate User:** `POST /api/auth/authenticate`
+- **Create user:** `POST /api/auth/register`
+- **Authenticate user:** `POST /api/auth/authenticate`
 
 ## Appointment Controller
 
-- **Book Appointment:** `POST /api/appointment/book`
-- **Cancel Appointment:** `DELETE /api/appointment/cancel/{appointmentId}`
-- **Update Appointment By AppointmentId:** `PUT /api/appointment/updateById/{appointmentId}`
-- **Update Appointment By DoctorId:** `PUT /api/appointment/updateByDoctorId/{doctorId}`
-- **Update Appointment By PatientId:** `PUT /api/appointment/updateByPatientId/{patientId}`
-- **View Patient Appointment:** `GET /appointment/patientAppointment/{patientId}`
-- **View Doctor Appointment:** `GET /appointment/doctorAppointment/{doctorId}`
-- **View All Appointments:** `GET /appointment/getAll`
+- **Book appointment:** `POST /api/appointment/book`
+- **Cancel appointment:** `DELETE /api/appointment/cancel/{appointmentId}`
+- **Update appointment by appointmentId:** `PUT /api/appointment/updateById/{appointmentId}`
+- **Update appointment by doctorId:** `PUT /api/appointment/updateByDoctorId/{doctorId}`
+- **Update appointment by patientId:** `PUT /api/appointment/updateByPatientId/{patientId}`
+- **View patient appointment:** `GET /appointment/patientAppointment/{patientId}`
+- **View doctor appointment:** `GET /appointment/doctorAppointment/{doctorId}`
+- **View all appointments:** `GET /appointment/getAll`
 
 ## Doctor Controller
 
-- **View Doctor:** `GET /doctor/{DoctorId}`
-- **View Doctor Appointments:** `GET /doctor/appointmentDetails/{doctorId}`
-- **View All Doctors:** `GET /doctor/getAll`
-- **Update Doctor:** `PUT /doctor/update/{DoctorId}`
-- **Remove Doctor:** `DELETE /doctor/delete/{DoctorId}`
+- **View doctor:** `GET /doctor/{DoctorId}`
+- **View doctor appointments:** `GET /doctor/appointmentDetails/{doctorId}`
+- **View all doctors:** `GET /doctor/getAll`
+- **Update doctor:** `PUT /doctor/update/{DoctorId}`
+- **Remove doctor:** `DELETE /doctor/delete/{DoctorId}`
 
 ## Patient Controller
 
-- **View Patient:** `GET /patient/{Id}`
-- **View All Patients:** `GET /patient/getAll`
-- **View Patient Appointment:** `GET /patient/appointment/{patientId}`
-- **Update Patient:** `PUT /patient/update/{Id}`
-- **Remove Patient:** `DELETE /patient/delete/{Id}`
+- **View patient:** `GET /patient/{Id}`
+- **View all patients:** `GET /patient/getAll`
+- **View patient appointment:** `GET /patient/appointment/{patientId}`
+- **Update patient:** `PUT /patient/update/{Id}`
+- **Remove patient:** `DELETE /patient/delete/{Id}`
 
 ## Receptionist Controller
 
-- **View Receptionist:** `GET /receptionist/get/{receptionistId}`
-- **View All Receptionists:** `GET /receptionist/getAll`
-- **View All Appointments:** `GET /receptionist/getAllAppointments`
-- **Update Appointment Status:** `PUT /receptionist/updateAppointmentStatus/{appointmentId}/{status}`
+- **View receptionist:** `GET /receptionist/get/{receptionistId}`
+- **View all receptionists:** `GET /receptionist/getAll`
+- **View all appointments:** `GET /receptionist/getAllAppointments`
+- **Update appointment status:** `PUT /receptionist/updateAppointmentStatus/{appointmentId}/{status}`
 
 ## User Controller
 
-- **View User:** `GET /user/{userId}`
-- **View All Users:** `GET /user/getAll`
-- **Remove User:** `DELETE /user/delete/{UserId}`
+- **View user:** `GET /user/{userId}`
+- **View all users:** `GET /user/getAll`
+- **Remove user:** `DELETE /user/delete/{UserId}`
 
 ## Appointment Table Description
 
@@ -157,7 +157,7 @@ ArrayLists are used in this application to efficiently manage lists of entities.
 
   - There isn't a direct ArrayList in the `Patient` entity, but the patient's appointments are managed using a reference to the `Appointment` entity.
 
-configuration for MySQL:
+## configuration for MySQL:
 
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/helathcareappointment

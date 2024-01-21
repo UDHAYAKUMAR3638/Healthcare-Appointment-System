@@ -15,6 +15,13 @@ The project follows a structured and organized architecture:
 - **Services:** logic is implemented in service classes such as `AppointmentService`, `PatientService`, `DoctorService`, `ReceptionistService` and `UserService`.
 - **Controller Classes:** These classes define and document RESTful API endpoints includes `DoctorController`, `PatientController`, `ReceptionistController` and `UserController`.
 
+## User Roles
+
+- **Admin**
+- **Doctor**
+- **Patient**
+- **Receptionist**
+
 ## Auth Controller
 
 - **Create user:** `POST /api/auth/register`

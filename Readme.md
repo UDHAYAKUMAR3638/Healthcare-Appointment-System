@@ -157,7 +157,7 @@ ArrayLists are used in this application to efficiently manage lists of entities.
 
   - There isn't a direct ArrayList in the `Patient` entity, but the patient's appointments are managed using a reference to the `Appointment` entity.
 
-configuration for MySQL:
+## configuration for MySQL:
 
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/helathcareappointment

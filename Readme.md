@@ -13,7 +13,7 @@ The project follows a structured and organized architecture:
 - **Entities:** This includes entities such as `Doctor`, `Patient`, `Appointment`, `Receptionist`, `User`, `Role` and `Token` to model the data.
 - **Repository:** This includes repository such as `AppointmentRepo`, `PatientRepo`, `DoctorRepo`, `ReceptionistRepo`, `UserRepo` and `TokenRepo` to access the entity data.
 - **Services:** logic is implemented in service classes such as `AppointmentService`, `PatientService`, `DoctorService`, `ReceptionistService` and `UserService`.
-- **Controller Classes:** These classes define and document RESTful API endpoints includes `AuthController`, `AppointmentController`, DoctorController`, `PatientController`, `ReceptionistController`and`UserController`.
+- **Controller Classes:** These classes define and document RESTful API endpoints includes `AuthController`, `AppointmentController`, `DoctorController`, `PatientController`, `ReceptionistController`and`UserController`.
 
 ## User Roles
 

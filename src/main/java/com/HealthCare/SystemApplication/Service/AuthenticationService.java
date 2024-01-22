@@ -1,10 +1,13 @@
-package com.HealthCare.SystemApplication.auth;
+package com.HealthCare.SystemApplication.service;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.HealthCare.SystemApplication.dto.AuthenticationRequest;
+import com.HealthCare.SystemApplication.dto.AuthenticationResponse;
+import com.HealthCare.SystemApplication.dto.RegisterRequest;
 import com.HealthCare.SystemApplication.exception.EmailAlreadyExistsException;
 import com.HealthCare.SystemApplication.model.Doctor;
 import com.HealthCare.SystemApplication.model.Patient;
@@ -18,7 +21,6 @@ import com.HealthCare.SystemApplication.repository.PatientRepo;
 import com.HealthCare.SystemApplication.repository.ReceptionistRepo;
 import com.HealthCare.SystemApplication.repository.TokenRepo;
 import com.HealthCare.SystemApplication.repository.UserRepo;
-import com.HealthCare.SystemApplication.service.JwtService;
 
 import lombok.RequiredArgsConstructor;
 

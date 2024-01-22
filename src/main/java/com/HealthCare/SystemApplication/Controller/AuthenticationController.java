@@ -1,7 +1,12 @@
-package com.HealthCare.SystemApplication.auth;
+package com.HealthCare.SystemApplication.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.HealthCare.SystemApplication.dto.AuthenticationRequest;
+import com.HealthCare.SystemApplication.dto.AuthenticationResponse;
+import com.HealthCare.SystemApplication.dto.RegisterRequest;
+import com.HealthCare.SystemApplication.service.AuthenticationService;
 
 import lombok.RequiredArgsConstructor;
 

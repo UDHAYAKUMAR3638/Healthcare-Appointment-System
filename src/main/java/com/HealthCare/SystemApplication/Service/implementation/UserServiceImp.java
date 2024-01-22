@@ -6,15 +6,20 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.HealthCare.SystemApplication.model.User;
 import com.HealthCare.SystemApplication.model.Doctor;
 import com.HealthCare.SystemApplication.model.Patient;
+import com.HealthCare.SystemApplication.model.Receptionist;
 import com.HealthCare.SystemApplication.model.Token;
-import com.HealthCare.SystemApplication.model.User;
 import com.HealthCare.SystemApplication.repository.AppointmentRepo;
 import com.HealthCare.SystemApplication.repository.DoctorRepo;
 import com.HealthCare.SystemApplication.repository.PatientRepo;
+import com.HealthCare.SystemApplication.repository.ReceptionistRepo;
 import com.HealthCare.SystemApplication.repository.TokenRepo;
 import com.HealthCare.SystemApplication.repository.UserRepo;
+import com.HealthCare.SystemApplication.service.DoctorService;
+import com.HealthCare.SystemApplication.service.PatientService;
+import com.HealthCare.SystemApplication.service.ReceptionistService;
 import com.HealthCare.SystemApplication.service.UserService;
 
 @Service
@@ -26,9 +31,17 @@ public class UserServiceImp implements UserService {
     @Autowired
     DoctorRepo doctorRepo;
     @Autowired
+    ReceptionistRepo receptionistRepo;
+    @Autowired
     AppointmentRepo appointmentRepo;
     @Autowired
     TokenRepo tokenRepo;
+    @Autowired
+    DoctorService doctorService;
+    @Autowired
+    PatientService patientService;
+    @Autowired
+    ReceptionistService receptionistService;
 
     /* return user details */
     @Override
@@ -67,6 +80,38 @@ public class UserServiceImp implements UserService {
         } else
             return "User not found.";
 
+    }
+
+    public User updateUser(Integer id, User user) {
+        User user1 = userRepo.findById(id).get();
+        if (user1 == null)
+            return null;
+        else {
+
+            if (user.getFirstname() != null)
+                user1.setFirstname(user.getFirstname());
+            if (user.getLastname() != null)
+                user1.setLastname(user.getLastname());
+
+            if (user1.getRole().toString() == "PATIENT") {
+                Patient patient = patientRepo.findByPatientEmail(user1.getEmail());
+                if (user.getEmail() != null)
+                    user1.setEmail(user.getEmail());
+                patientService.updatePatient(patient.getPatientId(), new Patient(user1));
+            } else if (user1.getRole().toString() == "DOCTOR") {
+                Doctor doctor = doctorRepo.findByDoctorEmail(user1.getEmail());
+                if (user.getEmail() != null)
+                    user1.setEmail(user.getEmail());
+                doctorService.updateDoctor(doctor.getDoctorId(), new Doctor(user1));
+            } else if (user1.getRole().toString() == "RECEPTIONIST") {
+                Receptionist receptionist = receptionistRepo.findByReceptionistEmail(user1.getEmail());
+                if (user.getEmail() != null)
+                    user1.setEmail(user.getEmail());
+                receptionistService.updateReceptionist(receptionist.getReceptionist_id(), new Receptionist(user1));
+            }
+            User userOut = userRepo.save(user1);
+            return userOut;
+        }
     }
 
 }

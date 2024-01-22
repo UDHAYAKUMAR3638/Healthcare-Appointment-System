@@ -8,17 +8,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.HealthCare.SystemApplication.model.User;
-import com.HealthCare.SystemApplication.service.implementation.UserServiceImp;
+import com.HealthCare.SystemApplication.service.UserService;
 
 @RestController
 @RequestMapping("user")
 public class UserController {
     @Autowired
-    UserServiceImp userService;
+    UserService userService;
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/get/{Id}")
@@ -39,6 +41,18 @@ public class UserController {
             return new ResponseEntity<String>(userService.deleteUser(Id), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<String>("User not deleted.", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/update/{Id}")
+    public ResponseEntity<User> updateUser(@PathVariable Integer Id,
+            @RequestBody User user) {
+        try {
+            return new ResponseEntity<User>(userService.updateUser(Id, user),
+                    HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 

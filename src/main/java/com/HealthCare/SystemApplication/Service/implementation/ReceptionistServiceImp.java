@@ -33,7 +33,7 @@ public class ReceptionistServiceImp implements ReceptionistService {
             if (receptionist.getReceptionistFristName() != null)
                 receptionist1.setReceptionistFristName(receptionist.getReceptionistFristName());
             if (receptionist.getReceptionistLastName() != null)
-                receptionist1.setReceptionistFristName(receptionist.getReceptionistLastName());
+                receptionist1.setReceptionistLastName(receptionist.getReceptionistLastName());
             if (receptionist.getReceptionistEmail() != null)
                 receptionist1.setReceptionistEmail(receptionist.getReceptionistEmail());
             Receptionist ReceptionistOut = receptionistRepo.save(receptionist1);

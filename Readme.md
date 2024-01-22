@@ -118,6 +118,7 @@ The project follows a structured and organized architecture:
 - **View user:** `GET /user/{userId}`
 - **View all users:** `GET /user/getAll`
 - **Remove user:** `DELETE /user/delete/{UserId}`
+- **Update user:** `PUT /user/update/{userId}`
 
 ## Repositories
 

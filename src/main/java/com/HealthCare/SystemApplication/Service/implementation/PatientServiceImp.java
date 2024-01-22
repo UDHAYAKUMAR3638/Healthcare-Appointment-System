@@ -3,7 +3,6 @@ package com.HealthCare.SystemApplication.service.implementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.HealthCare.SystemApplication.auth.AuthenticationService;
 import com.HealthCare.SystemApplication.dto.PatientOut;
 import com.HealthCare.SystemApplication.model.Appointment;
 import com.HealthCare.SystemApplication.model.Patient;
@@ -13,6 +12,7 @@ import com.HealthCare.SystemApplication.repository.AppointmentRepo;
 import com.HealthCare.SystemApplication.repository.PatientRepo;
 import com.HealthCare.SystemApplication.repository.TokenRepo;
 import com.HealthCare.SystemApplication.repository.UserRepo;
+import com.HealthCare.SystemApplication.service.AuthenticationService;
 import com.HealthCare.SystemApplication.service.PatientService;
 
 import java.util.List;

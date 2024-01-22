@@ -17,14 +17,14 @@ public class Receptionist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long receptionist_id;
-    private String ReceptionistFristName;
-    private String ReceptionistLastName;
-    private String ReceptionistEmail;
+    private String receptionistFristName;
+    private String receptionistLastName;
+    private String receptionistEmail;
 
     public Receptionist(User user) {
-        this.ReceptionistFristName = user.getFirstname();
-        this.ReceptionistLastName = user.getLastname();
-        this.ReceptionistEmail = user.getEmail();
+        this.receptionistFristName = user.getFirstname();
+        this.receptionistLastName = user.getLastname();
+        this.receptionistEmail = user.getEmail();
     }
 
 }

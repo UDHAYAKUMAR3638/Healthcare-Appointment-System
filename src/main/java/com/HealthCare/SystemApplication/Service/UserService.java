@@ -15,4 +15,6 @@ public interface UserService {
 
     public String deleteUser(Integer Id);
 
+    public User updateUser(Integer id, User user);
+
 }

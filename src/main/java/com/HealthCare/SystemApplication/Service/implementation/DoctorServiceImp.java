@@ -34,31 +34,27 @@ public class DoctorServiceImp implements DoctorService {
         return doctorRepo.findAll();
     }
 
-    /* update doctor details on doctor table */
+    /* update doctor details by doctorId in doctor table */
     @Override
     public DoctorOut updateDoctor(Long id, Doctor doctor) {
-        try {
-            Doctor doctor1 = doctorRepo.findById(id).get();
-            if (doctor1 == null)
-                return null;
-            else {
-                if (doctor.getDoctorFristName() != null)
-                    doctor1.setDoctorFristName(doctor.getDoctorFristName());
-                if (doctor.getDoctorLastName() != null)
-                    doctor1.setDoctorFristName(doctor.getDoctorLastName());
-                if (doctor.getDoctorEmail() != null)
-                    doctor1.setDoctorEmail(doctor.getDoctorEmail());
-                if (doctor.getSpecialization() != null)
-                    doctor1.setSpecialization(doctor.getSpecialization());
-                DoctorOut doctorOut = new DoctorOut(doctorRepo.save(doctor1));
-                return doctorOut;
-            }
-        } catch (Exception e) {
+        Doctor doctor1 = doctorRepo.findById(id).get();
+        if (doctor1 == null)
             return null;
+        else {
+            if (doctor.getDoctorFristName() != null)
+                doctor1.setDoctorFristName(doctor.getDoctorFristName());
+            if (doctor.getDoctorLastName() != null)
+                doctor1.setDoctorFristName(doctor.getDoctorLastName());
+            if (doctor.getDoctorEmail() != null)
+                doctor1.setDoctorEmail(doctor.getDoctorEmail());
+            if (doctor.getSpecialization() != null)
+                doctor1.setSpecialization(doctor.getSpecialization());
+            DoctorOut doctorOut = new DoctorOut(doctorRepo.save(doctor1));
+            return doctorOut;
         }
     }
 
-    /* delete doctor details from doctor table */
+    /* delete doctor details by doctorId from doctor table */
     @Override
     public DoctorOut deleteDoctor(Long id) {
         Doctor doctor = doctorRepo.findById(id).get();
@@ -77,7 +73,7 @@ public class DoctorServiceImp implements DoctorService {
         }
     }
 
-    /* return doctor appointments from doctor table */
+    /* return doctor appointments by doctorId from doctor table */
     @Override
     public List<Appointment> getDoctorAppointments(Long docId) {
         Doctor myDoc = doctorRepo.findByDoctorId(docId);
@@ -87,7 +83,7 @@ public class DoctorServiceImp implements DoctorService {
         return myDoc.getAppointments();
     }
 
-    /* return doctor details from doctor table */
+    /* return doctor details by doctorId from doctor table */
     @Override
     public Doctor getDoctor(Long id) {
         return doctorRepo.findById(id).get();

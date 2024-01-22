@@ -22,7 +22,23 @@ public class ReceptionistServiceImp implements ReceptionistService {
     /* return all receptionist details */
     public List<Receptionist> getAllReceptionist() {
         return receptionistRepo.findAll();
+    }
 
+    /* update receptionist details based on given receptionistId */
+    public Receptionist updateReceptionist(Long id, Receptionist receptionist) {
+        Receptionist receptionist1 = receptionistRepo.findById(id).get();
+        if (receptionist1 == null)
+            return null;
+        else {
+            if (receptionist.getReceptionistFristName() != null)
+                receptionist1.setReceptionistFristName(receptionist.getReceptionistFristName());
+            if (receptionist.getReceptionistLastName() != null)
+                receptionist1.setReceptionistFristName(receptionist.getReceptionistLastName());
+            if (receptionist.getReceptionistEmail() != null)
+                receptionist1.setReceptionistEmail(receptionist.getReceptionistEmail());
+            Receptionist ReceptionistOut = receptionistRepo.save(receptionist1);
+            return ReceptionistOut;
+        }
     }
 
 }

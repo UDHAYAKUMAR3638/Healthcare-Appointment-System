@@ -11,4 +11,6 @@ public interface ReceptionistService {
     public Receptionist getReceptionist(Long id);
 
     public List<Receptionist> getAllReceptionist();
+
+    public Receptionist updateReceptionist(Long id, Receptionist receptionist);
 }

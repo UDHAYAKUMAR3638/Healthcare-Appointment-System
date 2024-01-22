@@ -37,7 +37,7 @@ public class PatientServiceImp implements PatientService {
     @Autowired
     TokenRepo tokenRepo;
 
-    /* return patient detail from patient table */
+    /* return patient detail from patient table by patientId */
     @Override
     public Patient getPatient(Long Id) {
         return patientRepo.findById(Id).orElse(null);
@@ -49,31 +49,27 @@ public class PatientServiceImp implements PatientService {
         return patientRepo.findAll();
     }
 
-    /* update appointment detail by patient detail */
+    /* update patient detail by patientId */
     @Override
     public PatientOut updatePatient(Long id, Patient patient) {
-        try {
-            Patient patient1 = patientRepo.findById(id).get();
-            if (patient1 == null)
-                return null;
-            else {
-                if (patient.getPatientFirstName() != null)
-                    patient1.setPatientFirstName(patient.getPatientFirstName());
-                if (patient.getPatientLastName() != null)
-                    patient1.setPatientLastName(patient.getPatientLastName());
-                if (patient.getPatientContact() != null)
-                    patient1.setPatientContact(patient.getPatientContact());
-                if (patient.getPatientEmail() != null)
-                    patient1.setPatientEmail(patient.getPatientEmail());
-                PatientOut patientOut = new PatientOut(patientRepo.save(patient1));
-                return patientOut;
-            }
-        } catch (Exception e) {
+        Patient patient1 = patientRepo.findById(id).get();
+        if (patient1 == null)
             return null;
+        else {
+            if (patient.getPatientFirstName() != null)
+                patient1.setPatientFirstName(patient.getPatientFirstName());
+            if (patient.getPatientLastName() != null)
+                patient1.setPatientLastName(patient.getPatientLastName());
+            if (patient.getPatientContact() != null)
+                patient1.setPatientContact(patient.getPatientContact());
+            if (patient.getPatientEmail() != null)
+                patient1.setPatientEmail(patient.getPatientEmail());
+            PatientOut patientOut = new PatientOut(patientRepo.save(patient1));
+            return patientOut;
         }
     }
 
-    /* delete patient detail */
+    /* delete patient detail by patientId */
     @Override
     public PatientOut deletePatient(Long id) {
         Patient patient = patientRepo.findById(id).get();

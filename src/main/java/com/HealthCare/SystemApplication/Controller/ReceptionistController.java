@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -74,6 +75,18 @@ public class ReceptionistController {
         }
         List<AppointmentOut> appointmentOut = AppointmentOut.fromAppointments(myAppointments);
         return new ResponseEntity<List<AppointmentOut>>(appointmentOut, status);
+    }
+
+    @PreAuthorize("hasRole('RECEPTIONIST')or hasRole('ADMIN')")
+    @GetMapping("/update/{Id}")
+    public ResponseEntity<Receptionist> updateReceptionist(@PathVariable Long Id,
+            @RequestBody Receptionist receptionist) {
+        try {
+            return new ResponseEntity<Receptionist>(receptionistService.updateReceptionist(Id, receptionist),
+                    HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 
 }

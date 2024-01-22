@@ -17,9 +17,9 @@ The project follows a structured and organized architecture:
 
 ## User Roles
 
-- **Admin**
-- **Doctor**
-- **Patient**
+- **Admin :** Admin can access all user entities
+- **Doctor:**
+- **Patient:**
 - **Receptionist**
 
 ## Token Table Description
@@ -99,9 +99,9 @@ The project follows a structured and organized architecture:
 ## Receptionist Controller
 
 - **View receptionist:** `GET /receptionist/get/{receptionistId}`
-- **Update receptionist:** `GET /receptionist/update/{receptionistId}`
 - **View all receptionists:** `GET /receptionist/getAll`
 - **View all appointments:** `GET /receptionist/getAllAppointments`
+- **Update receptionist:** `GET /receptionist/update/{receptionistId}`
 - **Update appointment status:** `PUT /receptionist/updateAppointmentStatus/{appointmentId}/{status}`
 
 ## User Table Description

@@ -26,7 +26,7 @@ public class ReceptionistController {
     @Autowired
     ReceptionistService receptionistService;
 
-    @PreAuthorize("hasRole('RECEPTIONIST')")
+    @PreAuthorize("hasRole('RECEPTIONIST')or hasRole('ADMIN')")
     @PutMapping("updateAppointmentStatus/{Id}/{status}")
     public ResponseEntity<String> updateAppointmentStatus(@PathVariable Long Id, @PathVariable String status) {
         try {
@@ -36,7 +36,7 @@ public class ReceptionistController {
         }
     }
 
-    @PreAuthorize("hasRole('RECEPTIONIST')")
+    @PreAuthorize("hasRole('RECEPTIONIST')or hasRole('ADMIN')")
     @GetMapping("/get/{Id}")
     public ResponseEntity<Receptionist> getReceptionist(@PathVariable Long Id) {
         try {
@@ -47,7 +47,7 @@ public class ReceptionistController {
         }
     }
 
-    @PreAuthorize("hasRole('RECEPTIONIST')")
+    @PreAuthorize("hasRole('RECEPTIONIST')or hasRole('ADMIN')")
     @GetMapping("/getAll")
     public ResponseEntity<List<Receptionist>> getAllReceptionist() {
         try {
@@ -57,7 +57,7 @@ public class ReceptionistController {
         }
     }
 
-    @PreAuthorize("hasRole('RECEPTIONIST')")
+    @PreAuthorize("hasRole('RECEPTIONIST')or hasRole('ADMIN')")
     @GetMapping("/getAllAppointments")
     public ResponseEntity<List<AppointmentOut>> getAllAppointments() {
         List<Appointment> myAppointments = null;

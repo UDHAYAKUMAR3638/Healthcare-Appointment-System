@@ -22,7 +22,7 @@ import com.HealthCare.SystemApplication.service.implementation.PatientServiceImp
 
 @RestController
 @RequestMapping("patient")
-@PreAuthorize("hasRole('PATIENT') or hasRole('RECEPIONIST')")
+@PreAuthorize("hasRole('PATIENT') or hasRole('RECEPIONIST')or hasRole('ADMIN')")
 public class PatientController {
 
     @Autowired
@@ -39,7 +39,7 @@ public class PatientController {
         return new ResponseEntity<PatientOut>(patientOut, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('PATIENT') or hasRole('RECEPTIONIST')")
+    @PreAuthorize("hasRole('PATIENT') or hasRole('RECEPTIONIST')or hasRole('ADMIN')")
     @PutMapping("/update/{id}")
     public ResponseEntity<PatientOut> updatePatient(@PathVariable Long id, @RequestBody Patient patient) {
         try {
@@ -58,13 +58,13 @@ public class PatientController {
         return new ResponseEntity<List<PatientOut>>(allPatientsOut, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('PATIENT') or hasRole('RECEPTIONIST')")
+    @PreAuthorize("hasRole('PATIENT') or hasRole('RECEPTIONIST') or hasRole('ADMIN')")
     @GetMapping("/appointment/{Id}")
     public ResponseEntity<AppointmentOut> getPatientAppointment(@PathVariable Long Id) {
         return new ResponseEntity<AppointmentOut>(appointmentService.getPatientAppointment(Id), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('PATIENT') or hasRole('RECEPTIONIST')")
+    @PreAuthorize("hasRole('PATIENT') or hasRole('RECEPTIONIST')or hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deletePatient(@PathVariable Long id) {
         HttpStatus status;

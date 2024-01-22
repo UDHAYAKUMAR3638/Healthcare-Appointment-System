@@ -13,7 +13,7 @@ The project follows a structured and organized architecture:
 - **Entities:** This includes entities such as `Doctor`, `Patient`, `Appointment`, `Receptionist`, `User`, `Role` and `Token` to model the data.
 - **Repository:** This includes repository such as `AppointmentRepo`, `PatientRepo`, `DoctorRepo`, `ReceptionistRepo`, `UserRepo` and `TokenRepo` to access the entity data.
 - **Services:** logic is implemented in service classes such as `AppointmentService`, `PatientService`, `DoctorService`, `ReceptionistService` and `UserService`.
-- **Controller Classes:** These classes define and document RESTful API endpoints includes `DoctorController`, `PatientController`, `ReceptionistController` and `UserController`.
+- **Controller Classes:** These classes define and document RESTful API endpoints includes `AuthController`, `AppointmentController`, DoctorController`, `PatientController`, `ReceptionistController`and`UserController`.
 
 ## User Roles
 
@@ -22,10 +22,27 @@ The project follows a structured and organized architecture:
 - **Patient**
 - **Receptionist**
 
+## Token Table Description
+
+- `id`: Unique identifier for each token.
+- `token`: A unique token for user authentication.
+- `tokenType`: stores token type.
+- `expired`: token whether token is expired or not in bit type.
+- `revoked`: token revoked status is stored in bit type.
+- `user`: Many-to-one relationship and a reference to the associated patient for whom the token is issued.
+
 ## Auth Controller
 
 - **Create user:** `POST /api/auth/register`
 - **Authenticate user:** `POST /api/auth/authenticate`
+
+## Appointment Table Description
+
+- `appointmentId`: Unique identifier for each appointment.
+- `time`: Appointment date and time.
+- `doctor`: A reference to the associated doctor for the appointment.
+- `patient`: It has patient details for the appointment.
+- `appointmentStatus`: A reference to the associated patient for the appointment.
 
 ## Appointment Controller
 
@@ -38,52 +55,6 @@ The project follows a structured and organized architecture:
 - **View doctor appointment:** `GET /appointment/doctorAppointment/{doctorId}`
 - **View all appointments:** `GET /appointment/getAll`
 
-## Doctor Controller
-
-- **View doctor:** `GET /doctor/{DoctorId}`
-- **View doctor appointments:** `GET /doctor/appointmentDetails/{doctorId}`
-- **View all doctors:** `GET /doctor/getAll`
-- **Update doctor:** `PUT /doctor/update/{DoctorId}`
-- **Remove doctor:** `DELETE /doctor/delete/{DoctorId}`
-
-## Patient Controller
-
-- **View patient:** `GET /patient/{Id}`
-- **View all patients:** `GET /patient/getAll`
-- **View patient appointment:** `GET /patient/appointment/{patientId}`
-- **Update patient:** `PUT /patient/update/{Id}`
-- **Remove patient:** `DELETE /patient/delete/{Id}`
-
-## Receptionist Controller
-
-- **View receptionist:** `GET /receptionist/get/{receptionistId}`
-- **View all receptionists:** `GET /receptionist/getAll`
-- **View all appointments:** `GET /receptionist/getAllAppointments`
-- **Update appointment status:** `PUT /receptionist/updateAppointmentStatus/{appointmentId}/{status}`
-
-## User Controller
-
-- **View user:** `GET /user/{userId}`
-- **View all users:** `GET /user/getAll`
-- **Remove user:** `DELETE /user/delete/{UserId}`
-
-## Appointment Table Description
-
-- `appointmentId`: Unique identifier for each appointment.
-- `time`: Appointment date and time.
-- `doctor`: A reference to the associated doctor for the appointment.
-- `patient`: It has patient details for the appointment.
-- `appointmentStatus`: A reference to the associated patient for the appointment.
-
-## Token Table Description
-
-- `id`: Unique identifier for each token.
-- `token`: A unique token for user authentication.
-- `tokenType`: stores token type.
-- `expired`: token whether token is expired or not in bit type.
-- `revoked`: token revoked status is stored in bit type.
-- `user`: Many-to-one relationship and a reference to the associated patient for whom the token is issued.
-
 ## Doctor Table Description
 
 - `doctorId`: Unique identifier for each doctor.
@@ -92,6 +63,14 @@ The project follows a structured and organized architecture:
 - `doctorEmail`: Unique email address for the doctor(unique).
 - `specialization`: The doctor's specialization(e.g., "Cardiology," "Dermatology")..
 - `appointments`: A list of `Appointment` entities representing the appointments associated with the doctor.
+
+## Doctor Controller
+
+- **View doctor:** `GET /doctor/{DoctorId}`
+- **View doctor appointments:** `GET /doctor/appointmentDetails/{doctorId}`
+- **View all doctors:** `GET /doctor/getAll`
+- **Update doctor:** `PUT /doctor/update/{DoctorId}`
+- **Remove doctor:** `DELETE /doctor/delete/{DoctorId}`
 
 ## Patient Table Description
 
@@ -102,12 +81,28 @@ The project follows a structured and organized architecture:
 - `patientContact`: Contact information for the patient.
 - `appointment`: A reference to the `Appointment` entity representing the patient's appointment.
 
+## Patient Controller
+
+- **View patient:** `GET /patient/{Id}`
+- **View all patients:** `GET /patient/getAll`
+- **View patient appointment:** `GET /patient/appointment/{patientId}`
+- **Update patient:** `PUT /patient/update/{Id}`
+- **Remove patient:** `DELETE /patient/delete/{Id}`
+
 ## Receptionist Table Description
 
 - `ReceptionistId`: Unique identifier for each receptionist.
 - `ReceptionistFristName`: First name of the receptionist.
 - `ReceptionistLastName`: Last name of the receptionist.
 - `ReceptionistEmail`: Unique email address for the receptionist.
+
+## Receptionist Controller
+
+- **View receptionist:** `GET /receptionist/get/{receptionistId}`
+- **Update receptionist:** `GET /receptionist/update/{receptionistId}`
+- **View all receptionists:** `GET /receptionist/getAll`
+- **View all appointments:** `GET /receptionist/getAllAppointments`
+- **Update appointment status:** `PUT /receptionist/updateAppointmentStatus/{appointmentId}/{status}`
 
 ## User Table Description
 
@@ -117,6 +112,12 @@ The project follows a structured and organized architecture:
 - `email`: User email.
 - `password`: Encrypted user password.
 - `role`: It has roles of users like [PATIENT,ADMIN, DOCTOR, RECEPTIONIST].
+
+## User Controller
+
+- **View user:** `GET /user/{userId}`
+- **View all users:** `GET /user/getAll`
+- **Remove user:** `DELETE /user/delete/{UserId}`
 
 ## Repositories
 

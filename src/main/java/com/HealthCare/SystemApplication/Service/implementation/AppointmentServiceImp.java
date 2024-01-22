@@ -8,10 +8,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.HealthCare.SystemApplication.dto.AppointmentOut;
 import com.HealthCare.SystemApplication.model.Appointment;
 import com.HealthCare.SystemApplication.repository.AppointmentRepo;
 import com.HealthCare.SystemApplication.service.AppointmentService;
-import com.HealthCare.SystemApplication.dto.AppointmentOut;
 
 @Service
 public class AppointmentServiceImp implements AppointmentService {

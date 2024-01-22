@@ -25,7 +25,7 @@ public class AppointmentController {
     @Autowired
     AppointmentServiceImp appointmentService;
 
-    @PreAuthorize("hasRole('PATIENT') or hasRole('RECEPTIONIST')")
+    @PreAuthorize("hasRole('PATIENT') or hasRole('RECEPTIONIST or hasRole('ADMIN')")
     @PostMapping("/book")
     public ResponseEntity<String> bookAppointment(@RequestBody Appointment appointment) {
         String msg = null;
@@ -43,7 +43,7 @@ public class AppointmentController {
         return new ResponseEntity<String>(msg, status);
     }
 
-    @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR')")
+    @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR') or hasRole('ADMIN')")
     @PutMapping("/updateById/{id}")
     public ResponseEntity<?> updateAppointment(@PathVariable Long id, @RequestBody Appointment appointment) {
         HttpStatus status;
@@ -58,7 +58,7 @@ public class AppointmentController {
         return new ResponseEntity<>(null, status);
     }
 
-    @PreAuthorize("hasRole('DOCTOR')")
+    @PreAuthorize("hasRole('DOCTOR')or hasRole('ADMIN')")
     @PutMapping("/updateByDoctorId/{id}")
     public ResponseEntity<?> updateByDoctorAppointment(@PathVariable Long id, @RequestBody Appointment appointment) {
         HttpStatus status;
@@ -73,7 +73,7 @@ public class AppointmentController {
         return new ResponseEntity<>(null, status);
     }
 
-    @PreAuthorize("hasRole('PATIENT')")
+    @PreAuthorize("hasRole('PATIENT')or hasRole('ADMIN')")
     @PutMapping("/updateByPatientId/{id}")
     public ResponseEntity<?> updateByPatientAppointment(@PathVariable Long id, @RequestBody Appointment appointment) {
         HttpStatus status;
@@ -88,13 +88,13 @@ public class AppointmentController {
         return new ResponseEntity<>(null, status);
     }
 
-    @PreAuthorize("hasRole('PATIENT')")
+    @PreAuthorize("hasRole('PATIENT')or hasRole('ADMIN')")
     @GetMapping("/patientAppointment/{Id}")
     public ResponseEntity<AppointmentOut> getPatientAppointment(@PathVariable Long Id) {
         return new ResponseEntity<AppointmentOut>(appointmentService.getPatientAppointment(Id), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('DOCTOR')")
+    @PreAuthorize("hasRole('DOCTOR')or hasRole('ADMIN')")
     @GetMapping("/doctorAppointment/{Id}")
     public ResponseEntity<AppointmentOut> getDoctorAppointment(@PathVariable Long Id) {
         return new ResponseEntity<AppointmentOut>(appointmentService.getDoctorAppointment(Id), HttpStatus.OK);
@@ -120,7 +120,7 @@ public class AppointmentController {
         return new ResponseEntity<List<AppointmentOut>>(appointmentOut, status);
     }
 
-    @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR')")
+    @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR')or hasRole('ADMIN')")
     @DeleteMapping("/cancel/{Id}")
     ResponseEntity<String> cancelAppointment(@PathVariable Long Id) {
         appointmentService.cancelAppointment(Id);

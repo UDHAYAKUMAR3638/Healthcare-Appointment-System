@@ -82,6 +82,10 @@ public class UserServiceImp implements UserService {
 
     }
 
+    /*
+     * update user details also update in patient or doctor or receptionist detail
+     * based on role
+     */
     public User updateUser(Integer id, User user) {
         User user1 = userRepo.findById(id).get();
         if (user1 == null)

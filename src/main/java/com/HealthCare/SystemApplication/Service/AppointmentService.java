@@ -25,7 +25,7 @@ public interface AppointmentService {
 
     public void cancelAppointment(Long Id);
 
-    public AppointmentOut getDoctorAppointment(Long Id);
+    public List<AppointmentOut> getDoctorAppointment(Long Id);
 
     public AppointmentOut getPatientAppointment(Long Id);
 

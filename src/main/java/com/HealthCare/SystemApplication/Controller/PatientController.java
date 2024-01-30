@@ -22,7 +22,6 @@ import com.HealthCare.SystemApplication.service.PatientService;
 
 @RestController
 @RequestMapping("patient")
-@PreAuthorize("hasRole('PATIENT') or hasRole('RECEPIONIST')or hasRole('ADMIN')")
 public class PatientController {
 
     @Autowired

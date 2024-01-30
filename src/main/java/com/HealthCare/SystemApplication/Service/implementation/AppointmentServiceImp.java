@@ -43,44 +43,40 @@ public class AppointmentServiceImp implements AppointmentService {
     /* update the appointment details based on given doctorId */
     @Override
     public AppointmentOut updateDoctorAppointment(Long id, Appointment appointment) throws IOException {
-
-        Appointment appointment1 = appointmentRepo.findByDoctorDoctorId(id);
+        Appointment appointment1 = appointmentRepo.findByDoctorDoctorId(id).get(0);
+        AppointmentOut appointmentOut = null;
         if (appointment1 == null)
             throw new IOException("Appointment Not found");
         else {
-            if (appointment.getDoctor() != null)
-                appointment1.setDoctor(appointment.getDoctor());
             if (appointment.getPatient() != null)
                 appointment1.setPatient(appointment.getPatient());
             if (isTimeOutsideRange(appointment1.getDoctor().getDoctorId(), appointment1.getTime())) {
                 if (appointment.getTime() != null)
                     appointment1.setTime(appointment.getTime());
-                AppointmentOut appointmentOut = new AppointmentOut(appointmentRepo.save(appointment1));
-                return appointmentOut;
+                appointmentOut = new AppointmentOut(appointmentRepo.save(appointment1));
             }
         }
-        throw new IOException("Appointment Not found");
+        return appointmentOut;
     }
 
     /* update the appointment details based on given patientId */
     @Override
     public AppointmentOut updatePatientAppointment(Long id, Appointment appointment) throws IOException {
         Appointment appointment1 = appointmentRepo.findByPatientPatientId(id);
+        AppointmentOut appointmentOut = null;
         if (appointment1 == null)
             throw new IOException("Appointment Not found");
         else {
             if (appointment.getDoctor() != null)
                 appointment1.setDoctor(appointment.getDoctor());
-            if (appointment.getPatient() != null)
-                appointment1.setPatient(appointment.getPatient());
             if (isTimeOutsideRange(appointment1.getDoctor().getDoctorId(), appointment1.getTime())) {
                 if (appointment.getTime() != null)
                     appointment1.setTime(appointment.getTime());
-                AppointmentOut appointmentOut = new AppointmentOut(appointmentRepo.save(appointment1));
-                return appointmentOut;
+                appointmentOut = new AppointmentOut(appointmentRepo.save(appointment1));
             }
         }
-        throw new IOException("Appointment Not found");
+        return appointmentOut;
+
     }
 
     /*
@@ -133,12 +129,11 @@ public class AppointmentServiceImp implements AppointmentService {
 
     /* return appointment detail based on given doctorId */
     @Override
-    public AppointmentOut getDoctorAppointment(Long Id) {
-        Appointment appointment = null;
+    public List<AppointmentOut> getDoctorAppointment(Long Id) {
+        List<Appointment> appointment = null;
         appointment = appointmentRepo.findByDoctorDoctorId(Id);
         if (appointment != null) {
-            AppointmentOut appointmentOut = new AppointmentOut(appointment);
-            return appointmentOut;
+            return AppointmentOut.fromAppointments(appointment);
         }
         return null;
     }

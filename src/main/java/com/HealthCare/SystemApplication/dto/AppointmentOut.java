@@ -20,12 +20,14 @@ public class AppointmentOut {
     public LocalDateTime time;
     public long doctorId;
     public long patientId;
+    public String appointmentStatus = "Not Visited";
 
     public AppointmentOut(Appointment appointment) {
         this.appointmentId = appointment.getAppointmentId();
         this.time = appointment.getTime();
         this.doctorId = appointment.getDoctor().getDoctorId();
         this.patientId = appointment.getPatient().getPatientId();
+        this.appointmentStatus = appointment.getAppointmentStatus();
 
     }
 

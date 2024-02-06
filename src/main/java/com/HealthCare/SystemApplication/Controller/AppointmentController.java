@@ -25,7 +25,7 @@ public class AppointmentController {
     @Autowired
     AppointmentServiceImp appointmentService;
 
-    @PreAuthorize("hasRole('PATIENT') or hasRole('RECEPTIONIST or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('PATIENT') or hasRole('RECEPTIONIST') or hasRole('ADMIN')")
     @PostMapping("/book")
     public ResponseEntity<String> bookAppointment(@RequestBody Appointment appointment) {
         String msg = null;

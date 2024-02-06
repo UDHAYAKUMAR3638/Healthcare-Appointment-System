@@ -47,6 +47,10 @@ public class DoctorServiceImp implements DoctorService {
                 doctor1.setDoctorFristName(doctor.getDoctorLastName());
             if (doctor.getDoctorEmail() != null)
                 doctor1.setDoctorEmail(doctor.getDoctorEmail());
+            if (doctor.getInTime() != null)
+                doctor1.setInTime(doctor.getInTime());
+            if (doctor.getOutTime() != null)
+                doctor1.setOutTime(doctor.getOutTime());
             if (doctor.getSpecialization() != null)
                 doctor1.setSpecialization(doctor.getSpecialization());
             DoctorOut doctorOut = new DoctorOut(doctorRepo.save(doctor1));

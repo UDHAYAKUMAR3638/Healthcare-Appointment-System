@@ -31,6 +31,8 @@ public interface AppointmentService {
 
     public List<Appointment> getAllAppointments();
 
+    public boolean isDoctorAvailable(LocalDateTime givenTime, LocalDateTime startTime, LocalDateTime endTime);
+
     public String updateAppointmentStatus(Long id, String status) throws IOException;
 
 }

@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.HealthCare.SystemApplication.dto.AppointmentOut;
 import com.HealthCare.SystemApplication.model.Appointment;
+import com.HealthCare.SystemApplication.model.Doctor;
 import com.HealthCare.SystemApplication.repository.AppointmentRepo;
+import com.HealthCare.SystemApplication.repository.DoctorRepo;
 import com.HealthCare.SystemApplication.service.AppointmentService;
 
 @Service
@@ -18,6 +20,8 @@ public class AppointmentServiceImp implements AppointmentService {
 
     @Autowired
     AppointmentRepo appointmentRepo;
+    @Autowired
+    DoctorRepo doctorRepo;
 
     /* update the appointment details */
     @Override
@@ -86,6 +90,7 @@ public class AppointmentServiceImp implements AppointmentService {
      */
     @Override
     public boolean bookAppointment(Appointment appointment) {
+
         if (isTimeOutsideRange(appointment.getDoctor().getDoctorId(), appointment.getTime())) {
             appointmentRepo.save(appointment);
             return true;
@@ -100,13 +105,19 @@ public class AppointmentServiceImp implements AppointmentService {
     public boolean isTimeOutsideRange(Long doctorId, LocalDateTime givenTime) {
 
         List<Appointment> appointment = appointmentRepo.findAllByDoctorDoctorId(doctorId);
+        Doctor doctor = doctorRepo.findByDoctorId(doctorId);
         if (appointment.isEmpty())
             return true;
-        for (Appointment a : appointment) {
-            if (!isOutsideTimeRange(givenTime, a.getTime()))
-                return false;
+        if (isDoctorAvailable(givenTime, doctor.getInTime(), doctor.getOutTime())) {
+            System.out.println("Doctor is avaliable at given time");
+            for (Appointment a : appointment) {
+                if (!isOutsideTimeRange(givenTime, a.getTime()))
+                    return false;
+            }
+            return true;
         }
-        return true;
+        System.out.println("Doctor is not avaliable at given time");
+        return false;
     }
 
     /*
@@ -119,6 +130,14 @@ public class AppointmentServiceImp implements AppointmentService {
         LocalDateTime startTime = appointmentTime.minus(15, ChronoUnit.MINUTES);
         LocalDateTime endTime = appointmentTime.plus(15, ChronoUnit.MINUTES);
         return givenTime.isBefore(startTime) || givenTime.isAfter(endTime);
+    }
+
+    /*
+     * check given time is in between doctor inTime and outTime
+     */
+    @Override
+    public boolean isDoctorAvailable(LocalDateTime givenTime, LocalDateTime inTime, LocalDateTime outTime) {
+        return givenTime.isAfter(inTime) && givenTime.isBefore(outTime);
     }
 
     /* delete appointment based given on appointment id */

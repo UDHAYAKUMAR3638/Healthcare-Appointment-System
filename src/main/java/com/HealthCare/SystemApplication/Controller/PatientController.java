@@ -59,8 +59,8 @@ public class PatientController {
 
     @PreAuthorize("hasRole('PATIENT') or hasRole('RECEPTIONIST') or hasRole('ADMIN')")
     @GetMapping("/appointment/{Id}")
-    public ResponseEntity<AppointmentOut> getPatientAppointment(@PathVariable Long Id) {
-        return new ResponseEntity<AppointmentOut>(appointmentService.getPatientAppointment(Id), HttpStatus.OK);
+    public ResponseEntity<List<AppointmentOut>> getPatientAppointment(@PathVariable Long Id) {
+        return new ResponseEntity<List<AppointmentOut>>(appointmentService.getPatientAppointment(Id), HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('PATIENT') or hasRole('RECEPTIONIST')or hasRole('ADMIN')")

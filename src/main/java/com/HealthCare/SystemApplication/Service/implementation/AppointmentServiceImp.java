@@ -108,7 +108,8 @@ public class AppointmentServiceImp implements AppointmentService {
         Doctor doctor = doctorRepo.findByDoctorId(doctorId);
         if (appointment.isEmpty())
             return true;
-        if (isDoctorAvailable(givenTime, doctor.getInTime(), doctor.getOutTime())) {
+        if (doctor.getInTime() != null && doctor.getOutTime() != null
+                && isDoctorAvailable(givenTime, doctor.getInTime(), doctor.getOutTime())) {
             System.out.println("Doctor is avaliable at given time");
             for (Appointment a : appointment) {
                 if (!isOutsideTimeRange(givenTime, a.getTime()))
@@ -159,12 +160,11 @@ public class AppointmentServiceImp implements AppointmentService {
 
     /* return appointment detail based on given patientId */
     @Override
-    public AppointmentOut getPatientAppointment(Long Id) {
-        Appointment appointment = null;
-        appointment = appointmentRepo.findByPatientPatientId(Id);
+    public List<AppointmentOut> getPatientAppointment(Long Id) {
+        List<Appointment> appointment = null;
+        appointment = appointmentRepo.findAllByPatientPatientId(Id);
         if (appointment != null) {
-            AppointmentOut appointmentOut = new AppointmentOut(appointment);
-            return appointmentOut;
+            return AppointmentOut.fromAppointments(appointment);
         }
         return null;
     }

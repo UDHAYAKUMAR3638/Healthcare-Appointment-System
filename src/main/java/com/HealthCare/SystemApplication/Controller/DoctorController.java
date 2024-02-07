@@ -15,6 +15,7 @@ import com.HealthCare.SystemApplication.service.DoctorService;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("doctor")
 public class DoctorController {
 

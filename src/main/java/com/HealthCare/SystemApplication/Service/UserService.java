@@ -17,4 +17,8 @@ public interface UserService {
 
     public User updateUser(Integer id, User user);
 
+    public Optional<User> getUserEmail(String email);
+
+    public User updateUserByEmail(String email, User user);
+
 }

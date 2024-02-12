@@ -43,9 +43,16 @@ public class PatientServiceImp implements PatientService {
         return patientRepo.findById(Id).orElse(null);
     }
 
+    @Override
+    public Patient getPatientEmail(String email) {
+        System.out.println("service");
+        return patientRepo.findAllByPatientEmail(email);
+    }
+
     /* return patient appointment detail from appointment table */
     @Override
     public List<Patient> getAllPatients() {
+        System.out.println(patientRepo.findAll());
         return patientRepo.findAll();
     }
 

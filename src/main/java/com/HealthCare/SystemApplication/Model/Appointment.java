@@ -1,6 +1,7 @@
 package com.HealthCare.SystemApplication.model;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -19,14 +20,14 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long appointmentId;
 
-    private LocalDateTime time;
+    private Date time;
 
     @ManyToOne
-    @JoinColumn(name = "doctor_id") // add foreign key column with primary key column in Doctor
+    @JoinColumn(name = "doctorId") // add foreign key column with primary key column in Doctor
     private Doctor doctor;
 
-    @ManyToOne
-    @JoinColumn(name = "patient_id")
+    @OneToOne
+    @JoinColumn(name = "patientId")
     private Patient patient;
 
     private String appointmentStatus = "Not Visited";

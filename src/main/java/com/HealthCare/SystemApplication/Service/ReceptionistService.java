@@ -13,4 +13,6 @@ public interface ReceptionistService {
     public List<Receptionist> getAllReceptionist();
 
     public Receptionist updateReceptionist(Long id, Receptionist receptionist);
+
+    public Receptionist getReceptionistEmail(String email);
 }

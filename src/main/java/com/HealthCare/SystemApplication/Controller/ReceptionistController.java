@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,6 +21,7 @@ import com.HealthCare.SystemApplication.service.AppointmentService;
 import com.HealthCare.SystemApplication.service.ReceptionistService;
 
 @RestController
+@CrossOrigin
 @RequestMapping("receptionist")
 public class ReceptionistController {
     @Autowired
@@ -42,6 +44,17 @@ public class ReceptionistController {
     public ResponseEntity<Receptionist> getReceptionist(@PathVariable Long Id) {
         try {
             return new ResponseEntity<Receptionist>(receptionistService.getReceptionist(Id),
+                    HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PreAuthorize("hasRole('RECEPTIONIST')or hasRole('ADMIN')")
+    @GetMapping("/getEmail/{email}")
+    public ResponseEntity<Receptionist> getReceptionistEmail(@PathVariable String email) {
+        try {
+            return new ResponseEntity<Receptionist>(receptionistService.getReceptionistEmail(email),
                     HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

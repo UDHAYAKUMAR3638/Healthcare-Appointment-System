@@ -16,4 +16,5 @@ public interface UserRepo extends JpaRepository<User, Integer> {
     User deleteUserByEmail(String email);
 
     public void deleteByEmail(String doctorEmail);
+
 }

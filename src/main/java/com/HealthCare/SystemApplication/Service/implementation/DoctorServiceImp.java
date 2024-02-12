@@ -92,4 +92,9 @@ public class DoctorServiceImp implements DoctorService {
     public Doctor getDoctor(Long id) {
         return doctorRepo.findById(id).get();
     }
+
+    @Override
+    public Doctor getDoctorByEmail(String email) {
+        return doctorRepo.findByDoctorEmail(email);
+    }
 }

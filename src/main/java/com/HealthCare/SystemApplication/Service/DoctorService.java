@@ -21,4 +21,6 @@ public interface DoctorService {
 
     public Doctor getDoctor(Long id);
 
+    public Doctor getDoctorByEmail(String email);
+
 }

@@ -1,6 +1,7 @@
 package com.HealthCare.SystemApplication.dto;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,9 +18,9 @@ import lombok.NoArgsConstructor;
 public class AppointmentOut {
     @Id
     public Long appointmentId;
-    public LocalDateTime time;
-    public long doctorId;
-    public long patientId;
+    public Date time;
+    public Long doctorId;
+    public Long patientId;
     public String appointmentStatus = "Not Visited";
 
     public AppointmentOut(Appointment appointment) {

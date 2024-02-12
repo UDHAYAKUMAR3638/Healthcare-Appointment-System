@@ -49,6 +49,11 @@ public class UserServiceImp implements UserService {
         return userRepo.findById(Id);
     }
 
+    @Override
+    public Optional<User> getUserEmail(String email) {
+        return userRepo.findByEmail(email);
+    }
+
     /* return all user details from user */
     @Override
     public List<User> getAll() {
@@ -64,7 +69,7 @@ public class UserServiceImp implements UserService {
             tokenRepo.delete(token);
             userRepo.delete(user);
             if (user.getRole().toString() == "PATIENT") {
-                Patient patient = patientRepo.findByPatientEmail(user.getEmail());
+                Patient patient = patientRepo.findAllByPatientEmail(user.getEmail());
                 if (patient != null) {
                     appointmentRepo.deleteByPatientPatientId(patient.getPatientId());
                     patientRepo.delete(patient);
@@ -98,7 +103,7 @@ public class UserServiceImp implements UserService {
                 user1.setLastname(user.getLastname());
 
             if (user1.getRole().toString() == "PATIENT") {
-                Patient patient = patientRepo.findByPatientEmail(user1.getEmail());
+                Patient patient = patientRepo.findAllByPatientEmail(user1.getEmail());
                 if (user.getEmail() != null)
                     user1.setEmail(user.getEmail());
                 patientService.updatePatient(patient.getPatientId(), new Patient(user1));
@@ -112,6 +117,44 @@ public class UserServiceImp implements UserService {
                 if (user.getEmail() != null)
                     user1.setEmail(user.getEmail());
                 receptionistService.updateReceptionist(receptionist.getReceptionist_id(), new Receptionist(user1));
+            } else {
+                if (user.getPhoneno() != null)
+                    user1.setPhoneno(user.getPhoneno());
+            }
+            User userOut = userRepo.save(user1);
+            return userOut;
+        }
+    }
+
+    public User updateUserByEmail(String email, User user) {
+        User user1 = userRepo.findByEmail(email).get();
+        if (user1 == null)
+            return null;
+        else {
+
+            if (user.getFirstname() != null)
+                user1.setFirstname(user.getFirstname());
+            if (user.getLastname() != null)
+                user1.setLastname(user.getLastname());
+
+            if (user1.getRole().toString() == "PATIENT") {
+                Patient patient = patientRepo.findAllByPatientEmail(user1.getEmail());
+                if (user.getEmail() != null)
+                    user1.setEmail(user.getEmail());
+                patientService.updatePatient(patient.getPatientId(), new Patient(user1));
+            } else if (user1.getRole().toString() == "DOCTOR") {
+                Doctor doctor = doctorRepo.findByDoctorEmail(user1.getEmail());
+                if (user.getEmail() != null)
+                    user1.setEmail(user.getEmail());
+                doctorService.updateDoctor(doctor.getDoctorId(), new Doctor(user1));
+            } else if (user1.getRole().toString() == "RECEPTIONIST") {
+                Receptionist receptionist = receptionistRepo.findByReceptionistEmail(user1.getEmail());
+                if (user.getEmail() != null)
+                    user1.setEmail(user.getEmail());
+                receptionistService.updateReceptionist(receptionist.getReceptionist_id(), new Receptionist(user1));
+            } else {
+                if (user.getPhoneno() != null)
+                    user1.setPhoneno(user.getPhoneno());
             }
             User userOut = userRepo.save(user1);
             return userOut;

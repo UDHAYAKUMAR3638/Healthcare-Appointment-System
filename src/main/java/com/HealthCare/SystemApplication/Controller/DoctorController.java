@@ -73,7 +73,7 @@ public class DoctorController {
         return new ResponseEntity<>(null, status);
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST') or hasRole('PATIENT') or hasRole('DOCTOR')")
     @GetMapping("/getAll")
     public ResponseEntity<List<DoctorOut>> getAllDoctors() {
         List<Doctor> allDoctors = null;
@@ -88,6 +88,16 @@ public class DoctorController {
     public ResponseEntity<DoctorOut> getDoctor(@PathVariable Long Id) {
         Doctor doctor = null;
         doctor = doctorService.getDoctor(Id);
+        DoctorOut doctorOut = new DoctorOut(doctor);
+        return new ResponseEntity<DoctorOut>(doctorOut, HttpStatus.OK);
+
+    }
+
+    @PreAuthorize("hasRole('ADMIN') or hasRole('DOCTOR')")
+    @GetMapping("/getEmail/{email}")
+    public ResponseEntity<DoctorOut> getDoctorEmail(@PathVariable String email) {
+        Doctor doctor = null;
+        doctor = doctorService.getDoctorByEmail(email);
         DoctorOut doctorOut = new DoctorOut(doctor);
         return new ResponseEntity<DoctorOut>(doctorOut, HttpStatus.OK);
 

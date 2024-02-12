@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import com.HealthCare.SystemApplication.model.Appointment;
 import com.HealthCare.SystemApplication.service.implementation.AppointmentServiceImp;
 
 @RestController
+@CrossOrigin
 @RequestMapping("appointment")
 public class AppointmentController {
     @Autowired
@@ -27,7 +29,7 @@ public class AppointmentController {
 
     @PreAuthorize("hasRole('PATIENT') or hasRole('RECEPTIONIST') or hasRole('ADMIN')")
     @PostMapping("/book")
-    public ResponseEntity<String> bookAppointment(@RequestBody Appointment appointment) {
+    public ResponseEntity<?> bookAppointment(@RequestBody Appointment appointment) {
         String msg = null;
         HttpStatus status;
         try {
@@ -40,7 +42,7 @@ public class AppointmentController {
             msg = "Book Another Appointment as this appointment is already booked";
             status = HttpStatus.BAD_REQUEST;
         }
-        return new ResponseEntity<String>(msg, status);
+        return new ResponseEntity<>(null, status);
     }
 
     @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR') or hasRole('ADMIN')")
@@ -88,7 +90,7 @@ public class AppointmentController {
         return new ResponseEntity<>(null, status);
     }
 
-    @PreAuthorize("hasRole('PATIENT')or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('PATIENT') or hasRole('RECEPTIONIST') or hasRole('ADMIN')")
     @GetMapping("/patientAppointment/{Id}")
     public ResponseEntity<List<AppointmentOut>> getPatientAppointment(@PathVariable Long Id) {
         return new ResponseEntity<List<AppointmentOut>>(appointmentService.getPatientAppointment(Id), HttpStatus.OK);

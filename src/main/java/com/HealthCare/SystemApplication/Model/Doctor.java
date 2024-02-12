@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -24,8 +25,8 @@ public class Doctor {
     private String doctorLastName;
     private String doctorEmail;
     private String specialization;
-    private LocalDateTime inTime;
-    private LocalDateTime outTime;
+    private Date inTime;
+    private Date outTime;
 
     public Doctor(User user) {
         this.doctorFristName = user.getFirstname();

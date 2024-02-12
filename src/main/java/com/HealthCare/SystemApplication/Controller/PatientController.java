@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import com.HealthCare.SystemApplication.service.AppointmentService;
 import com.HealthCare.SystemApplication.service.PatientService;
 
 @RestController
+@CrossOrigin
 @RequestMapping("patient")
 public class PatientController {
 
@@ -38,6 +40,16 @@ public class PatientController {
         return new ResponseEntity<PatientOut>(patientOut, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST') or hasRole('PATIENT')")
+    @GetMapping("/getEmail/{email}")
+    public ResponseEntity<PatientOut> getPatientEmail(@PathVariable String email) {
+        System.out.println("controller");
+        Patient patient = null;
+        patient = patientService.getPatientEmail(email);
+        PatientOut patientOut = new PatientOut(patient);
+        return new ResponseEntity<PatientOut>(patientOut, HttpStatus.OK);
+    }
+
     @PreAuthorize("hasRole('PATIENT') or hasRole('RECEPTIONIST')or hasRole('ADMIN')")
     @PutMapping("/update/{id}")
     public ResponseEntity<PatientOut> updatePatient(@PathVariable Long id, @RequestBody Patient patient) {
@@ -48,7 +60,7 @@ public class PatientController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST') or hasRole('PATIENT')")
     @GetMapping("/getAll")
     public ResponseEntity<List<PatientOut>> getallPatients() {
         List<Patient> allPatients = null;

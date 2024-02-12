@@ -1,7 +1,7 @@
 package com.HealthCare.SystemApplication.service;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -19,9 +19,9 @@ public interface AppointmentService {
 
     public boolean bookAppointment(Appointment appointment);
 
-    public boolean isTimeOutsideRange(Long doctorId, LocalDateTime givenTime);
+    public boolean isTimeOutsideRange(Long doctorId, Date givenTime);
 
-    public boolean isOutsideTimeRange(LocalDateTime givenTime, LocalDateTime appointmentTime);
+    public boolean isOutsideTimeRange(Date givenTime, Date appointmentTime);
 
     public void cancelAppointment(Long Id);
 
@@ -31,7 +31,7 @@ public interface AppointmentService {
 
     public List<Appointment> getAllAppointments();
 
-    public boolean isDoctorAvailable(LocalDateTime givenTime, LocalDateTime startTime, LocalDateTime endTime);
+    public boolean isDoctorAvailable(Date givenTime, Date startTime, Date endTime);
 
     public String updateAppointmentStatus(Long id, String status) throws IOException;
 

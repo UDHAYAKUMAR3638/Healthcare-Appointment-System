@@ -1,8 +1,10 @@
 package com.HealthCare.SystemApplication.service.implementation;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.Temporal;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,7 +92,6 @@ public class AppointmentServiceImp implements AppointmentService {
      */
     @Override
     public boolean bookAppointment(Appointment appointment) {
-
         if (isTimeOutsideRange(appointment.getDoctor().getDoctorId(), appointment.getTime())) {
             appointmentRepo.save(appointment);
             return true;
@@ -102,7 +103,7 @@ public class AppointmentServiceImp implements AppointmentService {
      * get appointment detail by doctor id and check its time.
      */
     @Override
-    public boolean isTimeOutsideRange(Long doctorId, LocalDateTime givenTime) {
+    public boolean isTimeOutsideRange(Long doctorId, Date givenTime) {
 
         List<Appointment> appointment = appointmentRepo.findAllByDoctorDoctorId(doctorId);
         Doctor doctor = doctorRepo.findByDoctorId(doctorId);
@@ -126,19 +127,19 @@ public class AppointmentServiceImp implements AppointmentService {
      * mins
      */
     @Override
-    public boolean isOutsideTimeRange(LocalDateTime givenTime, LocalDateTime appointmentTime) {
+    public boolean isOutsideTimeRange(Date givenTime, Date appointmentTime) {
 
-        LocalDateTime startTime = appointmentTime.minus(15, ChronoUnit.MINUTES);
-        LocalDateTime endTime = appointmentTime.plus(15, ChronoUnit.MINUTES);
-        return givenTime.isBefore(startTime) || givenTime.isAfter(endTime);
+        Date startTime = (Date) ((Temporal) appointmentTime).minus(15, ChronoUnit.MINUTES);
+        Date endTime = (Date) ((Temporal) appointmentTime).plus(15, ChronoUnit.MINUTES);
+        return givenTime.before(startTime) || givenTime.after(endTime);
     }
 
     /*
      * check given time is in between doctor inTime and outTime
      */
     @Override
-    public boolean isDoctorAvailable(LocalDateTime givenTime, LocalDateTime inTime, LocalDateTime outTime) {
-        return givenTime.isAfter(inTime) && givenTime.isBefore(outTime);
+    public boolean isDoctorAvailable(Date givenTime, Date inTime, Date outTime) {
+        return givenTime.after(inTime) && givenTime.before(outTime);
     }
 
     /* delete appointment based given on appointment id */

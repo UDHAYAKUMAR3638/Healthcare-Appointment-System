@@ -19,6 +19,10 @@ public class ReceptionistServiceImp implements ReceptionistService {
         return receptionistRepo.findById(id).get();
     }
 
+    public Receptionist getReceptionistEmail(String email) {
+        return receptionistRepo.findByReceptionistEmail(email);
+    }
+
     /* return all receptionist details */
     public List<Receptionist> getAllReceptionist() {
         return receptionistRepo.findAll();

@@ -33,13 +33,18 @@ public class AppointmentController {
         String msg = null;
         HttpStatus status;
         try {
-            if (appointmentService.bookAppointment(appointment))
+            if (appointmentService.bookAppointment(appointment)) {
                 msg = " Appointment booked successfully";
-            else
+                status = HttpStatus.OK;
+                System.out.println(msg);
+            } else {
                 msg = "Another Appointment is already booked at this time try different time";
-            status = HttpStatus.OK;
+                System.out.println(msg);
+                status = HttpStatus.BAD_REQUEST;
+            }
         } catch (Exception e) {
             msg = "Book Another Appointment as this appointment is already booked";
+            System.out.println(e);
             status = HttpStatus.BAD_REQUEST;
         }
         return new ResponseEntity<>(null, status);

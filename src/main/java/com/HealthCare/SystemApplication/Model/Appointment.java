@@ -1,6 +1,5 @@
 package com.HealthCare.SystemApplication.model;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -21,6 +20,10 @@ public class Appointment {
     private Long appointmentId;
 
     private Date time;
+
+    private String doctorName;
+
+    private String patientName;
 
     @ManyToOne
     @JoinColumn(name = "doctorId") // add foreign key column with primary key column in Doctor

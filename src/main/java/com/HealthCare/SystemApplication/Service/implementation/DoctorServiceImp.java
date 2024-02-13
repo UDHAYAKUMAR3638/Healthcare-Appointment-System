@@ -44,7 +44,7 @@ public class DoctorServiceImp implements DoctorService {
             if (doctor.getDoctorFristName() != null)
                 doctor1.setDoctorFristName(doctor.getDoctorFristName());
             if (doctor.getDoctorLastName() != null)
-                doctor1.setDoctorFristName(doctor.getDoctorLastName());
+                doctor1.setDoctorLastName(doctor.getDoctorLastName());
             if (doctor.getDoctorEmail() != null)
                 doctor1.setDoctorEmail(doctor.getDoctorEmail());
             if (doctor.getInTime() != null)

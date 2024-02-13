@@ -84,7 +84,6 @@ public class UserServiceImp implements UserService {
             return "User Deleted.";
         } else
             return "User not found.";
-
     }
 
     /*
@@ -117,10 +116,9 @@ public class UserServiceImp implements UserService {
                 if (user.getEmail() != null)
                     user1.setEmail(user.getEmail());
                 receptionistService.updateReceptionist(receptionist.getReceptionist_id(), new Receptionist(user1));
-            } else {
+            } 
                 if (user.getPhoneno() != null)
                     user1.setPhoneno(user.getPhoneno());
-            }
             User userOut = userRepo.save(user1);
             return userOut;
         }

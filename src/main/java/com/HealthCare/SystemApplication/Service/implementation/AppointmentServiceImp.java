@@ -1,20 +1,19 @@
 package com.HealthCare.SystemApplication.service.implementation;
 
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.Temporal;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.HealthCare.SystemApplication.dto.AppointmentOut;
 import com.HealthCare.SystemApplication.model.Appointment;
 import com.HealthCare.SystemApplication.model.Doctor;
+import com.HealthCare.SystemApplication.model.Patient;
 import com.HealthCare.SystemApplication.repository.AppointmentRepo;
 import com.HealthCare.SystemApplication.repository.DoctorRepo;
+import com.HealthCare.SystemApplication.repository.PatientRepo;
 import com.HealthCare.SystemApplication.service.AppointmentService;
 
 @Service
@@ -24,6 +23,8 @@ public class AppointmentServiceImp implements AppointmentService {
     AppointmentRepo appointmentRepo;
     @Autowired
     DoctorRepo doctorRepo;
+    @Autowired
+    PatientRepo patientRepo;
 
     /* update the appointment details */
     @Override
@@ -36,6 +37,8 @@ public class AppointmentServiceImp implements AppointmentService {
                 appointment1.setDoctor(appointment.getDoctor());
             if (appointment.getPatient() != null)
                 appointment1.setPatient(appointment.getPatient());
+            appointment1.setPatientName(appointment.getPatientName());
+            appointment1.setDoctorName(appointment.getDoctorName());
             if (isTimeOutsideRange(appointment1.getDoctor().getDoctorId(), appointment.getTime())) {
                 if (appointment.getTime() != null)
                     appointment1.setTime(appointment.getTime());
@@ -82,7 +85,6 @@ public class AppointmentServiceImp implements AppointmentService {
             }
         }
         return appointmentOut;
-
     }
 
     /*
@@ -93,6 +95,8 @@ public class AppointmentServiceImp implements AppointmentService {
     @Override
     public boolean bookAppointment(Appointment appointment) {
         if (isTimeOutsideRange(appointment.getDoctor().getDoctorId(), appointment.getTime())) {
+            appointment.setPatientName(getPatName(appointment.getPatient().getPatientId()));
+            appointment.setDoctorName(getDocName(appointment.getDoctor().getDoctorId()));
             appointmentRepo.save(appointment);
             return true;
         } else
@@ -129,8 +133,21 @@ public class AppointmentServiceImp implements AppointmentService {
     @Override
     public boolean isOutsideTimeRange(Date givenTime, Date appointmentTime) {
 
-        Date startTime = (Date) ((Temporal) appointmentTime).minus(15, ChronoUnit.MINUTES);
-        Date endTime = (Date) ((Temporal) appointmentTime).plus(15, ChronoUnit.MINUTES);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(appointmentTime);
+
+        // Subtract 15 minutes from the appointmentTime
+        cal.add(Calendar.MINUTE, -15);
+        Date startTime = cal.getTime(); // Get the start time
+
+        // Create another calendar instance and set it to the appointmentTime again
+        cal.setTime(appointmentTime);
+
+        // Add 15 minutes to the appointmentTime
+        cal.add(Calendar.MINUTE, 15);
+        Date endTime = cal.getTime(); // Get the end time
+
+        // Check if the givenTime is before startTime or after endTime
         return givenTime.before(startTime) || givenTime.after(endTime);
     }
 
@@ -189,6 +206,18 @@ public class AppointmentServiceImp implements AppointmentService {
             appointmentRepo.save(appointment1);
             return "Status updated";
         }
+    }
+
+    @Override
+    public String getPatName(Long patientId) {
+        Patient p = patientRepo.findById(patientId).orElse(null);
+        return p.getPatientFirstName() + ' ' + p.getPatientLastName();
+    }
+
+    @Override
+    public String getDocName(Long DoctorId) {
+        Doctor d = doctorRepo.findById(DoctorId).get();
+        return d.getDoctorFristName() + ' ' + d.getDoctorLastName();
     }
 
 }

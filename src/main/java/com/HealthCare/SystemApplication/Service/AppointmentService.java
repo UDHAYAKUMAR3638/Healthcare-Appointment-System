@@ -35,4 +35,7 @@ public interface AppointmentService {
 
     public String updateAppointmentStatus(Long id, String status) throws IOException;
 
+    public String getPatName(Long patientId);
+
+    public String getDocName(Long DoctorId);
 }

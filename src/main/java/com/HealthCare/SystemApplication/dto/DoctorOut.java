@@ -1,5 +1,6 @@
 package com.HealthCare.SystemApplication.dto;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,6 +18,8 @@ public class DoctorOut {
     private String doctorLastName;
     private String doctorEmail;
     private String specialization;
+    private Date inTime;
+    private Date outTime;
 
     public DoctorOut(Doctor doctor) {
         this.doctorId = doctor.getDoctorId();
@@ -24,7 +27,8 @@ public class DoctorOut {
         this.doctorLastName = doctor.getDoctorLastName();
         this.specialization = doctor.getSpecialization();
         this.doctorEmail = doctor.getDoctorEmail();
-
+        this.inTime=doctor.getInTime();
+        this.outTime=doctor.getOutTime();
     }
 
     public static List<DoctorOut> fromDoctors(List<Doctor> doctors) {

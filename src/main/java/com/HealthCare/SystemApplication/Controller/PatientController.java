@@ -31,7 +31,7 @@ public class PatientController {
     @Autowired
     AppointmentService appointmentService;
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST') or hasRole('PATIENT')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST') or hasRole('PATIENT') or hasRole('DOCTOR')")
     @GetMapping("/{Id}")
     public ResponseEntity<PatientOut> getPatient(@PathVariable Long Id) {
         Patient patient = null;

@@ -45,6 +45,7 @@ public class DoctorServiceImp implements DoctorService {
                 doctor1.setDoctorFristName(doctor.getDoctorFristName());
             if (doctor.getDoctorLastName() != null)
                 doctor1.setDoctorLastName(doctor.getDoctorLastName());
+                User user=userRepo.findByEmail(doctor1.getDoctorEmail()).get();
             if (doctor.getDoctorEmail() != null)
                 doctor1.setDoctorEmail(doctor.getDoctorEmail());
             if (doctor.getInTime() != null)
@@ -53,6 +54,10 @@ public class DoctorServiceImp implements DoctorService {
                 doctor1.setOutTime(doctor.getOutTime());
             if (doctor.getSpecialization() != null)
                 doctor1.setSpecialization(doctor.getSpecialization());
+                user.setEmail(doctor1.getDoctorEmail());
+                user.setFirstname(doctor1.getDoctorFristName());
+                user.setLastname(doctor1.getDoctorLastName());
+                userRepo.save(user);
             DoctorOut doctorOut = new DoctorOut(doctorRepo.save(doctor1));
             return doctorOut;
         }

@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.HealthCare.SystemApplication.model.Receptionist;
+import com.HealthCare.SystemApplication.model.User;
 import com.HealthCare.SystemApplication.repository.ReceptionistRepo;
+import com.HealthCare.SystemApplication.repository.UserRepo;
 import com.HealthCare.SystemApplication.service.ReceptionistService;
 
 @Service
@@ -14,6 +16,8 @@ public class ReceptionistServiceImp implements ReceptionistService {
     @Autowired
     ReceptionistRepo receptionistRepo;
 
+    @Autowired
+    UserRepo userRepo;
     /* return receptionist details */
     public Receptionist getReceptionist(Long id) {
         return receptionistRepo.findById(id).get();
@@ -38,8 +42,13 @@ public class ReceptionistServiceImp implements ReceptionistService {
                 receptionist1.setReceptionistFristName(receptionist.getReceptionistFristName());
             if (receptionist.getReceptionistLastName() != null)
                 receptionist1.setReceptionistLastName(receptionist.getReceptionistLastName());
+                User user= userRepo.findByEmail(receptionist1.getReceptionistEmail()).get();
             if (receptionist.getReceptionistEmail() != null)
                 receptionist1.setReceptionistEmail(receptionist.getReceptionistEmail());
+                user.setEmail(receptionist1.getReceptionistEmail());
+                user.setFirstname(receptionist1.getReceptionistFristName());
+                user.setLastname(receptionist1.getReceptionistLastName());
+                userRepo.save(user);
             Receptionist ReceptionistOut = receptionistRepo.save(receptionist1);
             return ReceptionistOut;
         }

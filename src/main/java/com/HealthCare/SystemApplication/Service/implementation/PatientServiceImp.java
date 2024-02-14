@@ -69,8 +69,14 @@ public class PatientServiceImp implements PatientService {
                 patient1.setPatientLastName(patient.getPatientLastName());
             if (patient.getPatientContact() != null)
                 patient1.setPatientContact(patient.getPatientContact());
+                User user=userRepo.findByEmail(patient1.getPatientEmail()).get();
             if (patient.getPatientEmail() != null)
                 patient1.setPatientEmail(patient.getPatientEmail());
+                user.setEmail(patient1.getPatientEmail());
+                user.setFirstname(patient1.getPatientFirstName());
+                user.setLastname(patient1.getPatientLastName());
+                user.setPhoneno(patient1.getPatientContact());
+                userRepo.save(user);
             PatientOut patientOut = new PatientOut(patientRepo.save(patient1));
             return patientOut;
         }

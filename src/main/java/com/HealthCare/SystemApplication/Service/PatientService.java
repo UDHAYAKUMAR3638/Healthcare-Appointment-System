@@ -1,7 +1,8 @@
 package com.HealthCare.SystemApplication.service;
 
-import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.HealthCare.SystemApplication.dto.PatientOut;
@@ -11,7 +12,7 @@ import com.HealthCare.SystemApplication.model.Patient;
 public interface PatientService {
     public Patient getPatient(Long Id);
 
-    public List<Patient> getAllPatients();
+    public  Page<Patient> getAllPatients(Pageable pageable);
 
     public PatientOut updatePatient(Long id, Patient patient);
 

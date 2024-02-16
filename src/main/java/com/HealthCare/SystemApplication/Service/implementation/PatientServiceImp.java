@@ -1,6 +1,8 @@
 package com.HealthCare.SystemApplication.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.HealthCare.SystemApplication.dto.PatientOut;
@@ -45,15 +47,13 @@ public class PatientServiceImp implements PatientService {
 
     @Override
     public Patient getPatientEmail(String email) {
-        System.out.println("service");
         return patientRepo.findAllByPatientEmail(email);
     }
 
     /* return patient appointment detail from appointment table */
     @Override
-    public List<Patient> getAllPatients() {
-        System.out.println(patientRepo.findAll());
-        return patientRepo.findAll();
+    public Page<Patient> getAllPatients(Pageable pageable) {
+        return patientRepo.findAll(pageable);
     }
 
     /* update patient detail by patientId */

@@ -3,6 +3,8 @@ package com.HealthCare.SystemApplication.service.implementation;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.HealthCare.SystemApplication.dto.DoctorOut;
@@ -30,8 +32,8 @@ public class DoctorServiceImp implements DoctorService {
 
     /* return all doctor details from doctor table */
     @Override
-    public List<Doctor> getAllDoctors() {
-        return doctorRepo.findAll();
+    public Page<Doctor> getAllDoctors(Pageable pageable) {
+        return doctorRepo.findAll(pageable);
     }
 
     /* update doctor details by doctorId in doctor table */

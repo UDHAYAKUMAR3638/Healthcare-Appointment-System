@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.HealthCare.SystemApplication.dto.AppointmentOut;
@@ -27,9 +29,9 @@ public interface AppointmentService {
 
     public List<AppointmentOut> getDoctorAppointment(Long Id);
 
-    public List<AppointmentOut> getPatientAppointment(Long Id);
+    public Page<Appointment> getPatientAppointment(Long Id,Pageable pageable);
 
-    public List<Appointment> getAllAppointments();
+    public Page<Appointment> getAllAppointments(Pageable pageable);
 
     public boolean isDoctorAvailable(Date givenTime, Date startTime, Date endTime);
 

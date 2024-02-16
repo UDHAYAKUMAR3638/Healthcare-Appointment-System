@@ -5,12 +5,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.HealthCare.SystemApplication.dto.AppointmentOut;
 import com.HealthCare.SystemApplication.model.Appointment;
 import com.HealthCare.SystemApplication.model.Doctor;
 import com.HealthCare.SystemApplication.model.Patient;
+import com.HealthCare.SystemApplication.model.User;
 import com.HealthCare.SystemApplication.repository.AppointmentRepo;
 import com.HealthCare.SystemApplication.repository.DoctorRepo;
 import com.HealthCare.SystemApplication.repository.PatientRepo;
@@ -178,19 +181,14 @@ public class AppointmentServiceImp implements AppointmentService {
 
     /* return appointment detail based on given patientId */
     @Override
-    public List<AppointmentOut> getPatientAppointment(Long Id) {
-        List<Appointment> appointment = null;
-        appointment = appointmentRepo.findAllByPatientPatientId(Id);
-        if (appointment != null) {
-            return AppointmentOut.fromAppointments(appointment);
-        }
-        return null;
+    public Page<Appointment> getPatientAppointment(Long Id,Pageable pageable) {
+        return appointmentRepo.findAllByPatientPatientId(Id,pageable);
     }
 
     /* return list of all appointment details in appointment table */
     @Override
-    public List<Appointment> getAllAppointments() {
-        return appointmentRepo.findAll();
+    public Page<Appointment> getAllAppointments(Pageable pageable) {
+        return appointmentRepo.findAll(pageable);
     }
 
     /* update appointment status for mataining appointment is completed or not */

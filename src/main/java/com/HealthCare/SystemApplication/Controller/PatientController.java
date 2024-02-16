@@ -3,6 +3,9 @@ package com.HealthCare.SystemApplication.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,10 +16,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.HealthCare.SystemApplication.dto.AppointmentOut;
 import com.HealthCare.SystemApplication.dto.PatientOut;
+import com.HealthCare.SystemApplication.model.Appointment;
+import com.HealthCare.SystemApplication.model.Doctor;
 import com.HealthCare.SystemApplication.model.Patient;
 import com.HealthCare.SystemApplication.service.AppointmentService;
 import com.HealthCare.SystemApplication.service.PatientService;
@@ -60,19 +66,32 @@ public class PatientController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST') or hasRole('PATIENT')")
-    @GetMapping("/getAll")
-    public ResponseEntity<List<PatientOut>> getallPatients() {
-        List<Patient> allPatients = null;
-        allPatients = patientService.getAllPatients();
-        List<PatientOut> allPatientsOut = PatientOut.fromPatients(allPatients);
-        return new ResponseEntity<List<PatientOut>>(allPatientsOut, HttpStatus.OK);
-    }
+    // @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST') or hasRole('PATIENT') or hasRole('DOCTOR') ")
+    // @GetMapping("/getAll")
+    // public ResponseEntity<List<PatientOut>> getallPatients() {
+    //     List<Patient> allPatients = null;
+    //     allPatients = patientService.getAllPatients();
+    //     List<PatientOut> allPatientsOut = PatientOut.fromPatients(allPatients);
+    //     return new ResponseEntity<List<PatientOut>>(allPatientsOut, HttpStatus.OK);
+    // }
 
-    @PreAuthorize("hasRole('PATIENT') or hasRole('RECEPTIONIST') or hasRole('ADMIN')")
+
+      @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST') or hasRole('PATIENT') or hasRole('DOCTOR')")
+      @GetMapping("/getAll")
+      public ResponseEntity<Page<Patient>> getallPatients(@RequestParam(defaultValue = "0") int page,
+                                                @RequestParam(defaultValue = "10") int size) {
+            Pageable pageable = PageRequest.of(page, size);
+            Page<Patient> items = patientService.getAllPatients(pageable);
+            return ResponseEntity.ok(items);
+        }
+
+    @PreAuthorize("hasRole('PATIENT') or hasRole('RECEPTIONIST') or hasRole('ADMIN')  or hasRole('DOCTOR')")
     @GetMapping("/appointment/{Id}")
-    public ResponseEntity<List<AppointmentOut>> getPatientAppointment(@PathVariable Long Id) {
-        return new ResponseEntity<List<AppointmentOut>>(appointmentService.getPatientAppointment(Id), HttpStatus.OK);
+    public ResponseEntity<Page<Appointment>> getPatientAppointment(@PathVariable Long Id,@RequestParam(defaultValue = "0") int page,
+    @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Appointment> items =appointmentService.getPatientAppointment(Id,pageable);
+        return new ResponseEntity<Page<Appointment>>(items, HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('PATIENT') or hasRole('RECEPTIONIST')or hasRole('ADMIN')")

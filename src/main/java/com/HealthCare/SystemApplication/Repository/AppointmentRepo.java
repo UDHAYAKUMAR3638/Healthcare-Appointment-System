@@ -2,6 +2,8 @@ package com.HealthCare.SystemApplication.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.HealthCare.SystemApplication.model.Appointment;
@@ -22,5 +24,7 @@ public interface AppointmentRepo extends JpaRepository<Appointment, Long> {
     void deleteByPatientPatientId(Long patientId);
 
     void deleteAllByDoctorDoctorId(Long doctorId);
+
+    Page<Appointment> findAllByPatientPatientId(Long id, Pageable pageable);
 
 }

@@ -1,6 +1,9 @@
 package com.HealthCare.SystemApplication.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -73,16 +76,25 @@ public class DoctorController {
         return new ResponseEntity<>(null, status);
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST') or hasRole('PATIENT') or hasRole('DOCTOR')")
-    @GetMapping("/getAll")
-    public ResponseEntity<List<DoctorOut>> getAllDoctors() {
-        List<Doctor> allDoctors = null;
-        allDoctors = doctorService.getAllDoctors();
-        List<DoctorOut> allDoctorsOut = DoctorOut.fromDoctors(allDoctors);
-        return new ResponseEntity<List<DoctorOut>>(allDoctorsOut, HttpStatus.OK);
+    // @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST') or hasRole('PATIENT') or hasRole('DOCTOR')")
+    // @GetMapping("/getAll")
+    // public ResponseEntity<List<DoctorOut>> getAllDoctors() {
+    //     List<Doctor> allDoctors = null;
+    //     allDoctors = doctorService.getAllDoctors();
+    //     List<DoctorOut> allDoctorsOut = DoctorOut.fromDoctors(allDoctors);
+    //     return new ResponseEntity<List<DoctorOut>>(allDoctorsOut, HttpStatus.OK);
 
-    }
+    // }
 
+        @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST') or hasRole('PATIENT') or hasRole('DOCTOR')")
+        @GetMapping("/getAll")
+        public ResponseEntity<Page<Doctor>> getAllDoctors(@RequestParam(defaultValue = "0") int page,
+                                                @RequestParam(defaultValue = "10") int size) {
+            Pageable pageable = PageRequest.of(page, size);
+            Page<Doctor> items = doctorService.getAllDoctors(pageable);
+            return ResponseEntity.ok(items);
+        }
+      
     @PreAuthorize("hasRole('ADMIN') or hasRole('RECEPTIONIST') or hasRole('PATIENT') or hasRole('RECEPTIONIST')")
     @GetMapping("/{Id}")
     public ResponseEntity<DoctorOut> getDoctor(@PathVariable Long Id) {
